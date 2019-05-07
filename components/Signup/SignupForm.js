@@ -1,17 +1,20 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, Alert } from 'react-native';
+import Reactotron from 'reactotron-react-native'
 
 export default class SignupForm extends Component {
 
     constructor(props){
         super(props);
         this.state = {
-            nombre: '',
-            correo: '',
+            nombres: '',
+            apellidos: '',
+            email: '',
             celular: '',
             password: '',
             repeat_password: '',
-        }
+            ciudad: 'Cali',
+		}
     }
 
     _signup(){
@@ -26,9 +29,16 @@ export default class SignupForm extends Component {
 			
 			if (!this.state[field] || this.state[field]===''){
 				Alert.alert("Error", "Complete todos los campos");
-				return;
+				return false;
 			}
 		}
+
+		if(this.state.password != this.state.repeat_password){
+			Alert.alert("Error", "La contraseña no coincide");
+			return false;
+		}
+
+		return true;
 	}
 
     render() {
@@ -40,16 +50,27 @@ export default class SignupForm extends Component {
 					placeholder="Nombre" 
 					autoCapitalize={'words'}
 					placeholderTextColor="#9b9ea3"
-                    onChangeText={(nombre) => this.setState({nombre})}
-                    disabled={loading}
+                    onChangeText={(nombres) => this.setState({nombres})}
+					disabled={loading}
+					autoCorrect={false}
+                    />
+                <TextInput 
+                    style={styles.input}
+					placeholder="Apellido" 
+					autoCapitalize={'words'}
+					placeholderTextColor="#9b9ea3"
+                    onChangeText={(apellidos) => this.setState({apellidos})}
+					disabled={loading}
+					autoCorrect={false}
                     />
 				<TextInput 
                     style={styles.input}
-					placeholder="Correo electrónico" 
+					placeholder="email electrónico" 
 					autoCapitalize={'none'}
 					placeholderTextColor="#9b9ea3"
-                    onChangeText={(correo) => this.setState({correo})}
+                    onChangeText={(email) => this.setState({email})}
 					disabled={loading}
+					autoCorrect={false}
 					keyboardType={'email-address'}
                     />
                 <TextInput 
@@ -57,7 +78,8 @@ export default class SignupForm extends Component {
 					placeholder="Número de celular" 
 					placeholderTextColor="#9b9ea3"
                     onChangeText={(celular) => this.setState({celular})}
-                    disabled={loading}
+					disabled={loading}
+					autoCorrect={false}
                     keyboardType={'phone-pad'}
                     />
                 <TextInput 
@@ -67,7 +89,8 @@ export default class SignupForm extends Component {
 					secureTextEntry={true} 
 					autoCapitalize={'none'}
                     onChangeText={(password) => this.setState({password})}
-                    disabled={loading}
+					disabled={loading}
+					autoCorrect={false}
                     />
                 <TextInput 
                     style={styles.input}
@@ -76,7 +99,8 @@ export default class SignupForm extends Component {
 					secureTextEntry={true} 
 					autoCapitalize={'none'}
                     onChangeText={(repeat_password) => this.setState({repeat_password})}
-                    disabled={loading}
+					disabled={loading}
+					autoCorrect={false}
                     />
                 <TouchableOpacity style={styles.signButton} onPress={() => this._signup()} disabled={loading} >
                     <Text style={styles.buttonText}>Registrarse</Text>
@@ -86,7 +110,7 @@ export default class SignupForm extends Component {
     }
 }
 
-const required_fields = ['nombre', 'correo', 'celular', 'password', 'repeat_password']
+const required_fields = ['nombres', 'apellidos', 'email', 'celular', 'password', 'repeat_password']
 
 const styles = StyleSheet.create({
 	container: {
@@ -101,7 +125,7 @@ const styles = StyleSheet.create({
 		marginBottom: 20,
 		paddingHorizontal: 10,
 		backgroundColor: '#f2f6fc',
-		color: '#fff'
+		color: '#000'
 	},
 	signButton: {
 		backgroundColor: '#2980b9',

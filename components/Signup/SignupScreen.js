@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, KeyboardAvoidingView, Alert } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import SignupForm from './SignupForm';
+import Reactotron from 'reactotron-react-native';
 
 export default class SignupScreen extends Component {
 
@@ -18,6 +19,7 @@ export default class SignupScreen extends Component {
 	}
 
 	signUp = (formData) => {
+		Reactotron.log("signup start");
 		this.setState({loading: true});
 		fetch('http://192.168.0.27:8000/api/signup/', {
 			method: 'POST',
@@ -33,11 +35,13 @@ export default class SignupScreen extends Component {
 		.then((response) => response.json())
 		.then((responseJson) => {
 			let data = responseJson;
-			if(responseJson.success){
-				this._setUserId(responseJson.data.id ? responseJson.data.id : false);
+			Reactotron.log(data);
+			if(data.success){
+				Alert.alert("", "Registro completado, revisa tu correo para activar la cuenta");
+				this.props.navigation.navigate('Auth');
 			}
 			else{
-				Alert.alert("Error", "Datos incorrectos");
+				Alert.alert("Error", "Se produjo un error al crear la cuenta. Intentalo nuevamente en unos minutos.");
 			}
 			this.setState({loading: false});
 		});
