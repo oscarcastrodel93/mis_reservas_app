@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, TextInput, KeyboardAvoidingView, Alert } from 'react-native';
+import { Alert } from 'react-native';
+import { Container, Header, Content } from 'native-base';
 import AsyncStorage from '@react-native-community/async-storage';
 import SignupForm from './SignupForm';
 import Reactotron from 'reactotron-react-native';
@@ -19,7 +20,6 @@ export default class SignupScreen extends Component {
 	}
 
 	signUp = (formData) => {
-		Reactotron.log("signup start");
 		this.setState({loading: true});
 		fetch('http://192.168.0.27:8000/api/signup/', {
 			method: 'POST',
@@ -38,7 +38,7 @@ export default class SignupScreen extends Component {
 			Reactotron.log(data);
 			if(data.success){
 				Alert.alert("", "Registro completado, revisa tu correo para activar la cuenta");
-				this.props.navigation.navigate('Auth');
+				this.props.navigation.navigate('Login');
 			}
 			else{
 				Alert.alert("Error", "Se produjo un error al crear la cuenta. Intentalo nuevamente en unos minutos.");
@@ -58,18 +58,13 @@ export default class SignupScreen extends Component {
 
 	render() {
 		return (
-			<View style={styles.container}>
-				<SignupForm signUp={this.signUp} loading={this.state.loading}/>
-			</View>
+			<Container>
+				<SignupForm 
+					signUp={this.signUp} 
+					verifyEmail={this.verifyEmail} 
+					loading={this.state.loading}
+					/>
+			</Container>
 		);
 	}
 }
-
-const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: '#fff',
-		alignItems: 'center',
-		justifyContent: 'center',
-	}
-});

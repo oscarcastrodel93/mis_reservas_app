@@ -7,7 +7,7 @@ export default class LoginHeader extends Component {
             <View style={styles.logoContainer}>
                 <Image 
                     style={styles.logo}
-                    source={require('../../src/logo.png')}
+                    source={require('../../../src/logo.png')}
                     />
                 <Text style={styles.title}>Reservas App</Text>
                 <Text style={styles.subtitle}>Haz tus reservas fácil y rápido</Text>
