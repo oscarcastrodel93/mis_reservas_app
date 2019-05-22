@@ -6,6 +6,11 @@ import HomeScreen from './components/screens/Home/HomeScreen';
 
 const AppStack = createStackNavigator({ 
 	Home: HomeScreen 
+},{
+	headerMode: 'none',
+	navigationOptions: {
+	  headerVisible: false,
+	}
 });
 const AuthStack = createStackNavigator({ 
 	Login: LoginScreen,
