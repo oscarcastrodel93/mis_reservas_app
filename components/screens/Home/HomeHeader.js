@@ -5,11 +5,6 @@ export default class HomeHeader extends Component {
     render() {
         return (
             <Header>
-                {/* <Left>
-                    <Button transparent>
-                    <Icon name='arrow-back' />
-                    </Button>
-                </Left> */}
                 <Body>
                     <Title>Sedes disponibles</Title>
                 </Body>

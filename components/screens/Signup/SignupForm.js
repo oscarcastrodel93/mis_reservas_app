@@ -3,6 +3,7 @@ import { StyleSheet, Alert } from 'react-native';
 import { Container, Header, Content, Form, Item, Input, Button, Label, Text  } from 'native-base';
 import Reactotron from 'reactotron-react-native'
 import InputText from '../../fields/InputText';
+import { ToastService } from '../../utils/Utils';
 
 export default class SignupForm extends Component {
 
@@ -35,13 +36,13 @@ export default class SignupForm extends Component {
 			const field = required_fields[i];
 			
 			if (!this.state[field] || this.state[field]===''){
-				Alert.alert("Error", "Complete todos los campos");
+				ToastService.showToast("Complete todos los campos", "danger");
 				return false;
 			}
 		}
 
 		if(this.state.password != this.state.repeat_password){
-			Alert.alert("Error", "La contraseña no coincide");
+			ToastService.showToast("La contraseña no coincide", "danger");
 			return false;
 		}
 

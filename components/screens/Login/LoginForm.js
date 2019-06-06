@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native'
+import React, { Component } from 'react';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import { ToastService } from '../../utils/Utils';
 
 export default class LoginForm extends Component {
     constructor(props){
@@ -11,8 +12,22 @@ export default class LoginForm extends Component {
     }
 
     _login(){
+        if(!this._validateForm()) return;
+
         this.props.logIn(this.state);
     }
+
+    _validateForm = () => {
+			
+        if (!this.state.celular || this.state.celular===''
+            || !this.state.password || this.state.password===''){
+            
+            ToastService.showToast("Complete todos los campos", "danger");
+            return false;
+        }
+
+		return true;
+	}
 
     render() {
         let loading = this.props.loading;

@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, KeyboardAvoidingView, Alert } from 'react-nativ
 import AsyncStorage from '@react-native-community/async-storage';
 import LoginForm from './LoginForm';
 import LoginHeader from './LoginHeader';
+import { ToastService } from '../../utils/Utils';
 
 export default class LoginScreen extends Component {
 
@@ -79,7 +80,7 @@ export default class LoginScreen extends Component {
 				this._setUserId(responseJson.data.id ? responseJson.data.id : false);
 			}
 			else{
-				Alert.alert("Error", "Datos incorrectos");
+				ToastService.showToast("Datos incorrectos");
 			}
 			this.setState({loading: false});
 		});

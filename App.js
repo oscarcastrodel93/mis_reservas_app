@@ -3,6 +3,8 @@ import AuthLoadingScreen from './components/screens/Auth/AuthLoadingScreen';
 import LoginScreen from './components/screens/Login/LoginScreen';
 import SignupScreen from './components/screens/Signup/SignupScreen';
 import HomeScreen from './components/screens/Home/HomeScreen';
+import { Root } from "native-base";
+import React, {Component} from 'react';
 
 const AppStack = createStackNavigator({ 
 	Home: HomeScreen 
@@ -17,7 +19,7 @@ const AuthStack = createStackNavigator({
 	Signup: SignupScreen,
 });
 
-export default createAppContainer(createSwitchNavigator(
+const AppContainer = createAppContainer(createSwitchNavigator(
 	{
 		AuthLoading: AuthLoadingScreen,
 		App: AppStack,
@@ -27,3 +29,8 @@ export default createAppContainer(createSwitchNavigator(
 		initialRouteName: 'AuthLoading',
 	}
 ));
+
+export default () =>
+<Root>
+	<AppContainer />
+</Root>

@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import { StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import { Container, Header, Content, List, ListItem, Thumbnail, Text, Left, Body, Right, Button } from 'native-base';
+import { Container, Header, Content, List, ListItem, Thumbnail, Text, Left, Body, Right, Button, Toast } from 'native-base';
 import HomeHeader from './HomeHeader';
-import { getCurrentDateDB, getCurrentTime } from '../../utils/Utils';
+import SedesList from './SedesList';
+import { getCurrentDateDB, getCurrentTime, ToastService } from '../../utils/Utils';
 import Reactotron from 'reactotron-react-native';
 
 export default class HomeScreen extends Component {
@@ -13,10 +14,10 @@ export default class HomeScreen extends Component {
 		this.state = {
 			access_token: false,
 			filtro_zona: 'sur',
-			// filtro_fecha: getCurrentDateDB(),
-			// filtro_hora_inicio: getCurrentTime(0),
-			filtro_fecha: '2019-05-22',
-			filtro_hora_inicio: 19,
+			filtro_fecha: getCurrentDateDB(),
+			filtro_hora_inicio: getCurrentTime(0),
+			
+			sedes: [],
 		}
 	}
 
@@ -26,6 +27,7 @@ export default class HomeScreen extends Component {
 	};
 
 	getSedesActivas = () => {
+		Reactotron.log("getCurrentDateDB()", getCurrentDateDB());
 		this.setState({loading: true});
 		fetch('http://192.168.0.27:8000/api/sedes_activas/', {
 			method: 'POST',
@@ -35,16 +37,21 @@ export default class HomeScreen extends Component {
 				'Authorization': 'Bearer '+this.state.access_token,
 			},
 			body: JSON.stringify({
-				zona: this.state.filtro_zona,
+				// zona: this.state.filtro_zona,
 				fecha: this.state.filtro_fecha,
 				hora_inicio: this.state.filtro_hora_inicio,
 			}),
 		})
 		.then((response) => response.json())
 		.then((responseJson) => {
-			let data = responseJson;
-			Reactotron.log(data);
-			this.setState({loading: false});
+			// Reactotron.log(responseJson.data);
+			this.setState({
+				sedes: responseJson.success ? responseJson.data : [],
+				loading: false,
+			});
+			if(!responseJson.success){
+				ToastService.showToast(responseJson.message);
+			}
 		});
 	}
 
@@ -63,30 +70,15 @@ export default class HomeScreen extends Component {
 			<Container>
 				<HomeHeader />
 				<Content>
-				<List>
-					<ListItem thumbnail>
-						<Left>
-							<Thumbnail square source={require('../../../src/logo.png')} />
-						</Left>
-						<Body>
-							<Text>Sankhadeep</Text>
-							<Text note numberOfLines={1}>Its time to build a difference . .</Text>
-						</Body>
-						<Right>
-							<Button transparent>
-							<Text>View</Text>
-							</Button>
-						</Right>
-					</ListItem>
-				</List>
-				{/* <Button 
-					title="Cerrar sesión"
-					onPress={this._logOut} 
-					/> */}
-				
-				<Button onPress={this.getSedesActivas} >
-					<Text>Buscar</Text>
-				</Button>
+					<SedesList sedes={this.state.sedes}/>
+					
+					
+					<Button onPress={this.getSedesActivas} >
+						<Text>Buscar</Text>
+					</Button>
+					<Button onPress={this._logOut} >
+						<Text>Cerrar sesión</Text>
+					</Button>
 				</Content>
 				
 			</Container>
