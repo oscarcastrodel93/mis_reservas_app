@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import { Container, Header, Content, List, ListItem, Thumbnail, Text, Left, Body, Right, Button, Toast } from 'native-base';
+import { Container, Content, Item, Input, Text, Button } from 'native-base';
 import HomeHeader from './HomeHeader';
 import SedesList from './SedesList';
 import { getCurrentDateDB, getCurrentTime, ToastService } from '../../utils/Utils';
@@ -16,7 +16,7 @@ export default class HomeScreen extends Component {
 			filtro_zona: 'sur',
 			filtro_fecha: getCurrentDateDB(),
 			filtro_hora_inicio: getCurrentTime(0),
-			
+
 			sedes: [],
 		}
 	}
@@ -70,6 +70,10 @@ export default class HomeScreen extends Component {
 			<Container>
 				<HomeHeader />
 				<Content>
+					<Item regular>
+						<Input placeholder='Buscar' />
+					</Item>
+					
 					<SedesList sedes={this.state.sedes}/>
 					
 					

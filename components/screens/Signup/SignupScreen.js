@@ -4,6 +4,7 @@ import { Container, Header, Content } from 'native-base';
 import AsyncStorage from '@react-native-community/async-storage';
 import SignupForm from './SignupForm';
 import Reactotron from 'reactotron-react-native';
+import { ToastService } from '../../utils/Utils';
 
 export default class SignupScreen extends Component {
 
@@ -15,11 +16,17 @@ export default class SignupScreen extends Component {
 		super();
 		this.state = {
 			loading: false,
+			invalid_email: false,
 			access_token: false,
 		}
 	}
 
 	signUp = (formData) => {
+		if(this.state.invalid_email){
+			ToastService.showToast("Email no disponible", "danger");
+			return;
+		}
+
 		this.setState({loading: true});
 		fetch('http://192.168.0.27:8000/api/signup/', {
 			method: 'POST',
@@ -56,12 +63,37 @@ export default class SignupScreen extends Component {
 		this._getToken();
 	}
 
+	verifyEmail = (email) => {
+		let invalid  = false;
+		this.setState({loading: true, invalid_email: invalid});
+		fetch('http://192.168.0.27:8000/api/verifyemail/', {
+			method: 'POST',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json',
+				'Authorization': 'Bearer '+this.state.access_token,
+			},
+			body: JSON.stringify({
+				email: email
+			}),
+		})
+		.then((response) => response.json())
+		.then((responseJson) => {
+			if(!responseJson.success){
+				ToastService.showToast("Email no disponible", "danger");
+				invalid  = true;
+			}
+			this.setState({loading: false, invalid_email: invalid});
+		});
+	}
+
 	render() {
 		return (
 			<Container>
 				<SignupForm 
 					signUp={this.signUp} 
 					verifyEmail={this.verifyEmail} 
+					invalid_email={this.state.invalid_email} 
 					loading={this.state.loading}
 					/>
 			</Container>

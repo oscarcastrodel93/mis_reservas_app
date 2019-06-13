@@ -16,7 +16,7 @@ export default class SignupForm extends Component {
             celular: '',
             password: '',
             repeat_password: '',
-            ciudad: 'Cali',
+			ciudad: 'Cali',
 		}
 	}
 	
@@ -50,7 +50,8 @@ export default class SignupForm extends Component {
 	}
 
     render() {
-        let loading = this.props.loading;
+		let loading = this.props.loading;
+		let invalid_email = this.props.invalid_email;
         return (
 			<Container>
 				<Content padder>
@@ -75,11 +76,13 @@ export default class SignupForm extends Component {
 							autoCapitalize={'none'}
 							keyboardType={'email-address'}
 							maxLength={40}
+							onBlur={() => this.props.verifyEmail(this.state.email)}
+							error={invalid_email}
 							updateValue={this.updateValue}
 							/>
 						<InputText 
-							label="Celular"
-							name="Número de celular"
+							label="Número celular"
+							name="celular"
 							keyboardType={'phone-pad'}
 							maxLength={10}
 							updateValue={this.updateValue}

@@ -1,14 +1,21 @@
 import React, { Component } from 'react';
-import { Container, Item, Input, Label, Text  } from 'native-base';
-import Reactotron from 'reactotron-react-native'
+import { Container, Item, Input, Label, Text, Icon  } from 'native-base';
+import Reactotron from 'reactotron-react-native';
 
 export default class InputText extends Component {
 
     constructor(props){
         super(props);
         this.state={
-            
+            error: props.error ? props.error : false,
         }
+    }
+
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (nextProps.error !== prevState.error) {
+            return { error: nextProps.error } // <- this is setState equivalent
+        }
+        return null;
     }
 
     updateValue =  (name, value) => {
@@ -19,12 +26,13 @@ export default class InputText extends Component {
 
     render() {
         return (
-            <Item floatingLabel>
+            <Item floatingLabel error={this.state.error}>
                 <Label>{this.props.label}</Label>
                 <Input
                     {...this.props}
                     onChangeText={(inputValue) => this.updateValue(this.props.name, inputValue)}
                     />
+                {/* {this.state.error ? <Icon name='close-circle' /> : null} */}
             </Item>
         )
     }
