@@ -1,5 +1,7 @@
-import React, { Component } from 'react';
 import { Content, List, ListItem, Thumbnail, Text, Left, Body, Right, Button } from 'native-base';
+import Reactotron from 'reactotron-react-native';
+import React, { Component } from 'react';
+import SedeItem from './SedeItem';
 
 export default class SedesList extends Component {
 
@@ -7,36 +9,27 @@ export default class SedesList extends Component {
         super(props);
     }
 
+    filtrarSedes = () => {
+        let list_sedes = [];
+        let filtro = this.props.filtro.toLowerCase();
+		if (filtro!==undefined && filtro.length > 0) {
+			list_sedes = this.props.sedes.filter(sede => {
+				return sede.nombre.toLowerCase().includes(filtro)
+			});
+		}
+		else{
+			list_sedes = this.props.sedes;
+		}
+		return list_sedes;
+	}
+
     render() {
-        let zona = '';
+        let sedes_list = this.filtrarSedes();
         return (
             <List>
-                {this.props.sedes.map((sede, i) => {
-                return(
-                    <Content key={sede.id}>
-                        {sede.zona!=zona ? 
-                        <ListItem itemDivider>
-                            <Text>Zona {sede.zona}</Text>
-                        </ListItem> 
-                        : null }
-                        <ListItem thumbnail >
-                            <Left>
-                                <Thumbnail square source={require('../../../src/logo.png')} />
-                            </Left>
-                            <Body>
-                                <Text>{sede.nombre}</Text>
-                                <Text note numberOfLines={1}>{sede.direccion}</Text>
-                            </Body>
-                            <Right>
-                                <Button transparent>
-                                <Text>Ver</Text>
-                                </Button>
-                            </Right>
-                        </ListItem>
-                    </Content>
-                )
-                }
-                )}
+                {sedes_list.map((sede, i) => {
+                    return <SedeItem key={sede.id} sede={sede} />
+                })}
             </List>
         )
     }

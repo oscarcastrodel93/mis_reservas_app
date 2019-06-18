@@ -1,10 +1,10 @@
-import React, {Component} from 'react';
-import { Alert } from 'react-native';
-import { Container, Header, Content } from 'native-base';
 import AsyncStorage from '@react-native-community/async-storage';
-import SignupForm from './SignupForm';
+import { Container, Header, Content } from 'native-base';
 import Reactotron from 'reactotron-react-native';
 import { ToastService } from '../../utils/Utils';
+import React, {Component} from 'react';
+import { Alert } from 'react-native';
+import SignupForm from './SignupForm';
 
 export default class SignupScreen extends Component {
 
