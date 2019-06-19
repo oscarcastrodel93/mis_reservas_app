@@ -9,9 +9,9 @@ export default class HomeHeader extends Component {
                     <Title>Sedes disponibles</Title>
                 </Body>
                 <Right>
-                    <Button transparent>
+                    {/* <Button transparent>
                     <Icon name='menu' />
-                    </Button>
+                    </Button> */}
                 </Right>
             </Header>
         );

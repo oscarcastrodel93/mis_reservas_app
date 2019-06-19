@@ -1,8 +1,9 @@
 import { getCurrentDateDB, getCurrentTime, ToastService } from '../../utils/Utils';
-import { Container, Content, Item, Input, Text, Button } from 'native-base';
+import { Container, Content, Item, Input, Text, Button, Icon } from 'native-base';
 import AsyncStorage from '@react-native-community/async-storage';
 import Reactotron from 'reactotron-react-native';
 import { StyleSheet } from 'react-native';
+import FiltroModal from './FiltrarSedes/FiltroModal';
 import React, {Component} from 'react';
 import HomeHeader from './HomeHeader';
 import SedesList from './SedesList';
@@ -19,6 +20,7 @@ export default class HomeScreen extends Component {
 
 			sedes: [],
 			filtro: '',
+			modalVisible: false,
 		}
 	}
 
@@ -65,6 +67,10 @@ export default class HomeScreen extends Component {
 		});
 	}
 
+	setModalVisible = (visible) => {
+		this.setState({modalVisible: visible});
+	}
+
 	render() {
 		return (
 			<Container>
@@ -72,9 +78,18 @@ export default class HomeScreen extends Component {
 				<Content>
 					<Item regular>
 						<Input placeholder='Filtrar' onChangeText={(filtro) => this.setState({filtro})}/>
+						<Icon name='funnel' onPress={() => {this.setModalVisible(!this.state.modalVisible)}}/>
 					</Item>
+
+					<FiltroModal 
+						modalVisible={this.state.modalVisible}
+						setModalVisible={this.setModalVisible}
+						/>
 					
-					<SedesList sedes={this.state.sedes} filtro={this.state.filtro}/>
+					<SedesList 
+						sedes={this.state.sedes} 
+						filtro={this.state.filtro}
+						/>
 					
 					
 					{/* <Button onPress={this.getSedesActivas} >
