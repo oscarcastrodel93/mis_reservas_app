@@ -1,4 +1,5 @@
-import { Container, Content, Item, Input, Text, Button, Form } from 'native-base';
+import { Container, Content, Picker, Input, Text, Button, Form } from 'native-base';
+import SelectField from '../../../fields/SelectField';
 import InputText from '../../../fields/InputText';
 import React, { Component } from 'react';
 import Modal from "react-native-modal";
@@ -23,7 +24,46 @@ export default class FiltroModal extends Component {
     setModalVisible(visible) {
         this.setState({modalVisible: visible});
 		this.props.setModalVisible(visible);
-	}
+    }
+
+    updateValue =  (name, value) => {
+		this.setState({ [name]: value });
+    }
+    
+    setForm = () => {
+        return (
+            <Container style={{flex:1}}>
+                <Content padder>
+                    {/* <Form>
+                        <Text>Zona</Text>
+                        <Picker
+                            {...this.props}
+                            mode="dropdown"
+                            // style={{ width: 120 }}
+                            placeholder="Zona"
+                            selectedValue={this.state.filtro_zona}
+                            onValueChange={(filtro_zona) => this.setState({filtro_zona})}
+                        >
+                            <Picker.Item label="Norte" value="norte" />
+                            <Picker.Item label="Sur" value="sur" />
+                            <Picker.Item label="Oriente" value="oriente" />
+                            <Picker.Item label="Occidente" value="occidente" />
+                        </Picker>
+                    </Form> */}
+                    <SelectField 
+                        name="filtro_zona"
+                        label="Zona"
+                        list_name="zonas_list"
+                        selected_option={this.state.filtro_zona}
+                        updateValue={this.updateValue}
+                        />
+                    <Button onPress={() => {this.setModalVisible(!this.state.modalVisible)}}>
+                        <Text>Filtrar</Text>
+                    </Button>
+                </Content>
+            </Container>
+        )
+    }
 
     render() {
         return (
@@ -35,22 +75,7 @@ export default class FiltroModal extends Component {
                 animationIn="slideInRight"
                 animationOut="slideOutRight"
                 >
-                <Container style={{flex:1}}>
-                    <Content padder>
-                        <Form>
-                            <InputText 
-                                label="Nombre"
-                                name="nombres"
-                                autoCapitalize={'words'}
-                                maxLength={20}
-                                updateValue={this.updateValue}
-                                />
-                        </Form>
-                        <Button onPress={() => {this.setModalVisible(!this.state.modalVisible)}}>
-                            <Text>Filtrar</Text>
-                        </Button>
-				    </Content>
-                </Container>
+                {this.setForm()}
             </Modal>
         )
     }

@@ -1,9 +1,9 @@
 import { getCurrentDateDB, getCurrentTime, ToastService } from '../../utils/Utils';
 import { Container, Content, Item, Input, Text, Button, Icon } from 'native-base';
 import AsyncStorage from '@react-native-community/async-storage';
+import FiltroModal from './FiltrarSedes/FiltroModal';
 import Reactotron from 'reactotron-react-native';
 import { StyleSheet } from 'react-native';
-import FiltroModal from './FiltrarSedes/FiltroModal';
 import React, {Component} from 'react';
 import HomeHeader from './HomeHeader';
 import SedesList from './SedesList';
@@ -71,6 +71,10 @@ export default class HomeScreen extends Component {
 		this.setState({modalVisible: visible});
 	}
 
+	updateValue =  (name, value) => {
+		this.setState({ [name]: value });
+    }
+
 	render() {
 		return (
 			<Container>
@@ -84,6 +88,8 @@ export default class HomeScreen extends Component {
 					<FiltroModal 
 						modalVisible={this.state.modalVisible}
 						setModalVisible={this.setModalVisible}
+						getSedesActivas={this.getSedesActivas}
+						updateValue={this.updateValue}
 						/>
 					
 					<SedesList 

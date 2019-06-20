@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
 import { Container, Item, Input, Label, Text, Icon  } from 'native-base';
 import Reactotron from 'reactotron-react-native';
+import React, { Component } from 'react';
 
 export default class InputText extends Component {
 
