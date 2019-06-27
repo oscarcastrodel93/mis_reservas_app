@@ -1,6 +1,6 @@
 import { Container, Content, Picker, Input, Text, Button, Form } from 'native-base';
 import SelectField from '../../../fields/SelectField';
-import InputText from '../../../fields/InputText';
+import DateField from '../../../fields/DateField';
 import React, { Component } from 'react';
 import Modal from "react-native-modal";
 import { View } from 'react-native';
@@ -34,32 +34,28 @@ export default class FiltroModal extends Component {
         return (
             <Container style={{flex:1}}>
                 <Content padder>
-                    {/* <Form>
-                        <Text>Zona</Text>
-                        <Picker
-                            {...this.props}
-                            mode="dropdown"
-                            // style={{ width: 120 }}
-                            placeholder="Zona"
-                            selectedValue={this.state.filtro_zona}
-                            onValueChange={(filtro_zona) => this.setState({filtro_zona})}
-                        >
-                            <Picker.Item label="Norte" value="norte" />
-                            <Picker.Item label="Sur" value="sur" />
-                            <Picker.Item label="Oriente" value="oriente" />
-                            <Picker.Item label="Occidente" value="occidente" />
-                        </Picker>
-                    </Form> */}
-                    <SelectField 
-                        name="filtro_zona"
-                        label="Zona"
-                        list_name="zonas_list"
-                        selected_option={this.state.filtro_zona}
-                        updateValue={this.updateValue}
-                        />
-                    <Button onPress={() => {this.setModalVisible(!this.state.modalVisible)}}>
-                        <Text>Filtrar</Text>
-                    </Button>
+                    <Form>
+                        <SelectField 
+                            label="Zona"
+                            name="filtro_zona"
+                            list_name="zonas_list"
+                            selected_option={this.state.filtro_zona}
+                            updateValue={this.updateValue}
+                            />
+                        <DateField 
+                            label="Fecha"
+                            name="filtro_fecha"
+                            style={{width: 300}}
+                            placeholder="Seleccione un dia"
+                            format="YYYY-MM-DD"
+                            minDate="2016-05-01"
+                            selected_date={this.state.filtro_fecha}
+                            updateValue={this.updateValue}
+                            />
+                        <Button onPress={() => {this.setModalVisible(!this.state.modalVisible)}}>
+                            <Text>Filtrar</Text>
+                        </Button>
+                    </Form>
                 </Content>
             </Container>
         )

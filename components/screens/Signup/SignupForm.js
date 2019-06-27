@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { StyleSheet, Alert } from 'react-native';
 import { Container, Header, Content, Form, Item, Input, Button, Label, Text  } from 'native-base';
 import Reactotron from 'reactotron-react-native'
-import InputText from '../../fields/InputText';
+import InputTextField from '../../fields/InputTextField';
 import { ToastService } from '../../utils/Utils';
 
 export default class SignupForm extends Component {
@@ -56,21 +56,21 @@ export default class SignupForm extends Component {
 			<Container>
 				<Content padder>
 					<Form>
-						<InputText 
+						<InputTextField 
 							label="Nombre"
 							name="nombres"
 							autoCapitalize={'words'}
 							maxLength={20}
 							updateValue={this.updateValue}
 							/>
-						<InputText 
+						<InputTextField 
 							label="Apellido"
 							name="apellidos"
 							autoCapitalize={'words'}
 							maxLength={20}
 							updateValue={this.updateValue}
 							/>
-						<InputText 
+						<InputTextField 
 							label="Correo electrónico"
 							name="email"
 							autoCapitalize={'none'}
@@ -80,21 +80,21 @@ export default class SignupForm extends Component {
 							error={invalid_email}
 							updateValue={this.updateValue}
 							/>
-						<InputText 
+						<InputTextField 
 							label="Número celular"
 							name="celular"
 							keyboardType={'phone-pad'}
 							maxLength={10}
 							updateValue={this.updateValue}
 							/>
-						<InputText 
+						<InputTextField 
 							label="Contraseña"
 							name="password"
 							secureTextEntry={true} 
 							maxLength={12}
 							updateValue={this.updateValue}
 							/>
-						<InputText 
+						<InputTextField 
 							label="Repita la contraseña"
 							name="repeat_password"
 							secureTextEntry={true} 

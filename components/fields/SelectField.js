@@ -1,4 +1,4 @@
-import { Picker, Text, Form } from 'native-base';
+import { Picker, Text, Content } from 'native-base';
 import Reactotron from 'reactotron-react-native';
 import React, { Component } from 'react';
 import { enums } from '../utils/Enums';
@@ -30,7 +30,7 @@ export default class SelectField extends Component {
         let list_options = this.props.list_options ? this.props.list_options : enums[this.props.list_name];
         
         return (
-            <Form>
+            <Content>
                 <Text>{this.props.label}</Text>
                 <Picker
                     {...this.props}
@@ -42,7 +42,7 @@ export default class SelectField extends Component {
                         return <Picker.Item key={option.key} label={option.label} value={option.key} />
                     })}
                 </Picker>
-            </Form>
+            </Content>
         )
     }
 }
