@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
 import { Content, List, ListItem, Thumbnail, Text, Left, Body, Right, Button } from 'native-base';
+import { withNavigation } from 'react-navigation';
+import React, { Component } from 'react';
 
-export default class SedeItem extends Component {
+class SedeItem extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -27,8 +28,15 @@ export default class SedeItem extends Component {
                         </Text>
                     </Body>
                     <Right>
-                        <Button transparent>
-                        <Text>Ver</Text>
+                        <Button transparent
+                            onPress={() => {
+                                this.props.navigation.navigate('Sede', {
+                                  id: sede.id,
+                                  name: sede.nombre,
+                                });
+                              }}
+                            >
+                            <Text>Ver</Text>
                         </Button>
                     </Right>
                 </ListItem>
@@ -36,3 +44,5 @@ export default class SedeItem extends Component {
         )
     }
 }
+
+export default withNavigation(SedeItem);
