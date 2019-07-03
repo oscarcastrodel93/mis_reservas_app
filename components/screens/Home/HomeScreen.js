@@ -6,6 +6,7 @@ import Reactotron from 'reactotron-react-native';
 import { StyleSheet } from 'react-native';
 import React, {Component} from 'react';
 import HomeHeader from './HomeHeader';
+import HomeFooter from './HomeFooter';
 import SedesList from './SedesList';
 
 export default class HomeScreen extends Component {
@@ -79,6 +80,7 @@ export default class HomeScreen extends Component {
 		return (
 			<Container>
 				<HomeHeader />
+
 				<Content>
 					<Item regular>
 						<Input placeholder='Filtrar' onChangeText={(filtro) => this.setState({filtro})}/>
@@ -101,10 +103,10 @@ export default class HomeScreen extends Component {
 					{/* <Button onPress={this.getSedesActivas} >
 						<Text>Buscar</Text>
 					</Button> */}
-					<Button onPress={this._logOut} >
-						<Text>Cerrar sesión</Text>
-					</Button>
 				</Content>
+
+				<HomeFooter 
+					logOut={this._logOut}/>
 				
 			</Container>
 		);

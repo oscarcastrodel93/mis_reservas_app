@@ -1,5 +1,7 @@
-import { Text, Content } from 'native-base';
 import DatePicker from 'react-native-datepicker';
+import Reactotron from 'reactotron-react-native';
+import { StyleSheet } from 'react-native';
+import { Text, Content } from 'native-base';
 import React, { Component } from 'react';
  
 export default class DateField extends Component {
@@ -33,6 +35,7 @@ export default class DateField extends Component {
                     // maxDate="2016-06-01"
                     mode={this.props.mode ? this.props.mode : "date"}
                     date={this.state.selected_date}
+                    format="YYYY-MM-DD"
                     confirmBtnText="Confirm"
                     cancelBtnText="Cancel"
                     customStyles={{
@@ -43,7 +46,8 @@ export default class DateField extends Component {
                             marginRight: 0
                         },
                         dateInput: {
-                            marginRight: 36
+                            marginRight: 36,
+                            marginTop: 15,
                         }
                     }}
                     onDateChange={(selected_date) => this.updateValue(this.props.name, selected_date)}
@@ -52,3 +56,9 @@ export default class DateField extends Component {
         )
     }
 }
+
+const styles = StyleSheet.create({
+	dateInput: {
+		marginTop: 5,
+	},
+});
