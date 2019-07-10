@@ -23,9 +23,6 @@ export default class SedeInfo extends Component {
                         Teléfono: {sede.telefono} - {sede.celular}
                     </Text>
                 </CardItem>
-                <CardItem header bordered>
-                    <Text>Horarios disponibles:</Text>
-                </CardItem>
             </Content>
         )
     }

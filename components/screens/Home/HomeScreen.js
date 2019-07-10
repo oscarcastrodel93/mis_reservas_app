@@ -97,6 +97,7 @@ export default class HomeScreen extends Component {
 					<SedesList 
 						sedes={this.state.sedes} 
 						filtro={this.state.filtro}
+						filtro_fecha={this.state.filtro_fecha}
 						/>
 					
 					

@@ -1,9 +1,10 @@
-import { Container, Content, Card } from 'native-base';
+import { Container, Content, Card, Button, Text } from 'native-base';
 import AsyncStorage from '@react-native-community/async-storage';
 import { withNavigation } from 'react-navigation';
 import Reactotron from 'reactotron-react-native';
-import React, { Component } from 'react';
+import { StyleSheet } from 'react-native';
 import HorariosList from './HorariosList';
+import React, { Component } from 'react';
 import SedeHeader from './SedeHeader';
 import SedeInfo from './SedeInfo';
 
@@ -13,13 +14,17 @@ class SedeScreen extends Component {
         this.state = {
             access_token: false,
             sede: false,
+            filtro_fecha: false,
 			horarios: [],
 			selected_horario: false,
         }
     }
 
     componentDidMount(){
-		this.setState({sede: this.props.navigation.getParam('sede', false)});
+		this.setState({
+			sede: this.props.navigation.getParam('sede', false),
+			filtro_fecha: this.props.navigation.getParam('filtro_fecha', false),
+		});
 		this._getToken();
 	}
 
@@ -69,13 +74,27 @@ class SedeScreen extends Component {
 							horarios={this.state.horarios}
 							selected_horario={this.state.selected_horario}
 							updateValue={this.updateValue}
+							filtro_fecha={this.state.filtro_fecha}
 							/>
-						
 					</Card>
+				</Content>
+				<Content padder style={styles.reservarButton}>
+					<Button block disabled={!this.state.selected_horario}>
+						<Text>{this.state.selected_horario ? 'Reservar' : 'Seleccione un horario'}</Text>
+					</Button>
 				</Content>
             </Container>
         )
     }
 }
+
+const styles = StyleSheet.create({
+	reservarButton: {
+		position: 'absolute', 
+		bottom: 0, 
+		left:0, 
+		right:0
+	},
+});
 
 export default withNavigation(SedeScreen);

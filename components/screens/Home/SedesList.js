@@ -1,4 +1,5 @@
-import { Content, List, ListItem, Thumbnail, Text, Left, Body, Right, Button } from 'native-base';
+import { Content, List, ListItem, Text, Left, Body, Right, Button } from 'native-base';
+import { getHumanDate } from '../../utils/Utils';
 import Reactotron from 'reactotron-react-native';
 import React, { Component } from 'react';
 import SedeItem from './SedeItem';
@@ -25,10 +26,18 @@ export default class SedesList extends Component {
 
     render() {
         let sedes_list = this.filtrarSedes();
+        let filtro_fecha = getHumanDate(this.props.filtro_fecha);
         return (
             <List>
+                <ListItem itemDivider>
+                    <Text style={{ color: "#8d8d8d" }}>Disponibles para el {filtro_fecha}</Text>
+                </ListItem>
                 {sedes_list.map((sede, i) => {
-                    return <SedeItem key={sede.id} sede={sede} />
+                    return <SedeItem 
+                                key={sede.id} 
+                                sede={sede} 
+                                filtro_fecha={this.props.filtro_fecha}
+                                />
                 })}
             </List>
         )

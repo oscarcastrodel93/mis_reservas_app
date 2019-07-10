@@ -38,7 +38,7 @@ export default class HorarioItem extends Component {
                         renderText={value => <Text>{value}</Text>}/>
                 </Right>
                 <Right>
-                    <Icon name="checkmark-circle" />
+                    <Icon name={"checkmark"+(this.state.selected ? "-circle":"")} />
                 </Right>
             </ListItem>
         );

@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
-import { StyleSheet, Alert } from 'react-native';
 import { Container, Header, Content, Form, Item, Input, Button, Label, Text  } from 'native-base';
-import Reactotron from 'reactotron-react-native'
 import InputTextField from '../../fields/InputTextField';
 import { ToastService } from '../../utils/Utils';
+import { StyleSheet, Alert } from 'react-native';
+import Reactotron from 'reactotron-react-native'
+import React, { Component } from 'react'
 
 export default class SignupForm extends Component {
 
@@ -102,7 +102,9 @@ export default class SignupForm extends Component {
 							updateValue={this.updateValue}
 							/>
 					</Form>
-					<Button block onPress={() => this._signup()} disabled={loading} style={styles.signButton}>
+				</Content>
+				<Content padder style={styles.signButton}>
+					<Button block onPress={() => this._signup()} disabled={loading} >
 						<Text>Registrarse</Text>
 					</Button>
 				</Content>
@@ -121,7 +123,9 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 	},
 	signButton: {
-		backgroundColor: '#2980b9',
-		marginTop: 150,
+		position: 'absolute', 
+		bottom: 0, 
+		left:0, 
+		right:0
 	},
 });
