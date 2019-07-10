@@ -31,8 +31,7 @@ class SedeItem extends Component {
                         <Button transparent
                             onPress={() => {
                                 this.props.navigation.navigate('Sede', {
-                                  id: sede.id,
-                                  name: sede.nombre,
+                                    sede: sede,
                                 });
                               }}
                             >
