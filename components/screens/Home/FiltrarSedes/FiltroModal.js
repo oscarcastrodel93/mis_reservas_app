@@ -2,11 +2,10 @@ import { getCurrentDateDB, getCurrentTime, ToastService } from '../../../utils/U
 import { Container, Content, Picker, Item, Text, Button, Form } from 'native-base';
 import SelectField from '../../../fields/SelectField';
 import DateField from '../../../fields/DateField';
+import Reactotron from 'reactotron-react-native';
 import { StyleSheet } from 'react-native';
 import React, { Component } from 'react';
 import Modal from "react-native-modal";
-import { View } from 'react-native';
-import Reactotron from 'reactotron-react-native';
 
 export default class FiltroModal extends Component {
 

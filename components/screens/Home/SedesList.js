@@ -30,7 +30,7 @@ export default class SedesList extends Component {
         return (
             <List>
                 <ListItem itemDivider>
-                    <Text style={{ color: "#8d8d8d" }}>Disponibles para el {filtro_fecha}</Text>
+                    <Text style={{ color: "#8d8d8d", fontSize: 12 }}>Disponibles para el {filtro_fecha}</Text>
                 </ListItem>
                 {sedes_list.map((sede, i) => {
                     return <SedeItem 

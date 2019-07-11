@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
 import { StyleSheet, Text, View, KeyboardAvoidingView, Alert } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import { ToastService, getBackendURL } from '../../utils/Utils';
+import React, {Component} from 'react';
 import LoginForm from './LoginForm';
 import LoginHeader from './LoginHeader';
-import { ToastService } from '../../utils/Utils';
 
 export default class LoginScreen extends Component {
 
@@ -31,7 +31,7 @@ export default class LoginScreen extends Component {
 	_getToken = () => {
 		// Obtener el token al inicio de sesion
 		this.setState({loading: true})
-        fetch('http://192.168.0.27:8000/oauth/token', {
+        fetch(getBackendURL()+'/oauth/token', {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
@@ -61,7 +61,7 @@ export default class LoginScreen extends Component {
 
 	logIn = (formData) => {
 		this.setState({loading: true});
-		fetch('http://192.168.0.27:8000/api/login/', {
+		fetch(getBackendURL()+'/api/login/', {
 			method: 'POST',
 			headers: {
 				Accept: 'application/json',

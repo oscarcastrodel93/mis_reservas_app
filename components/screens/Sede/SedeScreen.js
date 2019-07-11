@@ -1,7 +1,9 @@
-import { Container, Content, Card, Button, Text } from 'native-base';
+import { Container, Content, Card, Button, Text, Spinner, CardItem } from 'native-base';
 import AsyncStorage from '@react-native-community/async-storage';
 import { withNavigation } from 'react-navigation';
 import Reactotron from 'reactotron-react-native';
+import { getHumanDate, getBackendURL } from '../../utils/Utils';
+import ModalReservar from './ModalReservar';
 import { StyleSheet } from 'react-native';
 import HorariosList from './HorariosList';
 import React, { Component } from 'react';
@@ -16,7 +18,8 @@ class SedeScreen extends Component {
             sede: false,
             filtro_fecha: false,
 			horarios: [],
-			selected_horario: false,
+			selected_horario: {id: false},
+			modalVisible: false,
         }
     }
 
@@ -38,7 +41,7 @@ class SedeScreen extends Component {
 		if(!this.state.sede) return;
 
 		this.setState({loading: true});
-		fetch('http://192.168.0.27:8000/api/horarios_disponibles/'+this.state.sede.id, {
+		fetch(getBackendURL()+'/api/horarios_disponibles/'+this.state.sede.id, {
 			method: 'GET',
 			headers: {
 				Accept: 'application/json',
@@ -60,16 +63,26 @@ class SedeScreen extends Component {
 
 	updateValue =  (name, value) => {
 		this.setState({ [name]: value });
-    }
+	}
+	
+	setModalVisible = (visible) => {
+		this.setState({modalVisible: visible});
+	}
 
     render() {
-        const { sede } = this.state;
+		const { sede } = this.state;
+		let filtro_fecha = getHumanDate(this.state.filtro_fecha);
         return (
             <Container>
                 <SedeHeader sede_name={sede.nombre}/>
 				<Content>
 					<Card transparent>
 						<SedeInfo sede={sede}/>
+
+						<CardItem header bordered>
+							<Text>Horarios disponibles ({filtro_fecha}):</Text>
+						</CardItem>
+						{this.state.loading ? <Spinner color='83a7fc' /> : null}
 						<HorariosList 
 							horarios={this.state.horarios}
 							selected_horario={this.state.selected_horario}
@@ -79,10 +92,17 @@ class SedeScreen extends Component {
 					</Card>
 				</Content>
 				<Content padder style={styles.reservarButton}>
-					<Button block disabled={!this.state.selected_horario}>
-						<Text>{this.state.selected_horario ? 'Reservar' : 'Seleccione un horario'}</Text>
+					<Button block disabled={!this.state.selected_horario.id} onPress={() => {this.setModalVisible(!this.state.modalVisible)}}>
+						<Text>{this.state.selected_horario.id ? 'Reservar' : 'Seleccione un horario'}</Text>
 					</Button>
 				</Content>
+				<ModalReservar 
+					sede={sede}
+					horario={this.state.selected_horario}
+					modalVisible={this.state.modalVisible}
+					setModalVisible={this.setModalVisible}
+					filtro_fecha={this.state.filtro_fecha}
+					/>
             </Container>
         )
     }

@@ -24,7 +24,7 @@ export default class HorarioItem extends Component {
     render() {
         const horario = this.props.horario;
         return (
-            <ListItem onPress={() => this.selectHorario(horario.id)} selected={this.state.selected}>
+            <ListItem onPress={() => this.selectHorario(horario)} selected={this.state.selected}>
                 <Left>
                     <Text>{horario.nombre}</Text>
                 </Left>

@@ -1,4 +1,4 @@
-import { getCurrentDateDB, getCurrentTime, ToastService } from '../../utils/Utils';
+import { getCurrentDateDB, getCurrentTime, ToastService, getBackendURL } from '../../utils/Utils';
 import { Container, Content, Item, Input, Text, Button, Icon } from 'native-base';
 import AsyncStorage from '@react-native-community/async-storage';
 import FiltroModal from './FiltrarSedes/FiltroModal';
@@ -42,7 +42,7 @@ export default class HomeScreen extends Component {
 
 	getSedesActivas = () => {
 		this.setState({loading: true});
-		fetch('http://192.168.0.27:8000/api/sedes_activas/', {
+		fetch(getBackendURL()+'/api/sedes_activas/', {
 			method: 'POST',
 			headers: {
 				Accept: 'application/json',

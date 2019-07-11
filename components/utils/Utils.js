@@ -43,6 +43,10 @@ export const getHumanDate = function(db_date){
     }
 }
 
+export const getBackendURL = function(){
+    return "http://192.168.0.27:8000";
+}
+
 /**
  * Genera mensajes en la parte inferior de la aplicacion
  * @param message (Mensaje a mostrar)

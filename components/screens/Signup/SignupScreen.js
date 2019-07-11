@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage';
+import { ToastService, getBackendURL } from '../../utils/Utils';
 import { Container, Header, Content } from 'native-base';
 import Reactotron from 'reactotron-react-native';
-import { ToastService } from '../../utils/Utils';
 import React, {Component} from 'react';
 import { Alert } from 'react-native';
 import SignupForm from './SignupForm';
@@ -28,7 +28,7 @@ export default class SignupScreen extends Component {
 		}
 
 		this.setState({loading: true});
-		fetch('http://192.168.0.27:8000/api/signup/', {
+		fetch(getBackendURL()+'/api/signup/', {
 			method: 'POST',
 			headers: {
 				Accept: 'application/json',
@@ -66,7 +66,7 @@ export default class SignupScreen extends Component {
 	verifyEmail = (email) => {
 		let invalid  = false;
 		this.setState({loading: true, invalid_email: invalid});
-		fetch('http://192.168.0.27:8000/api/verifyemail/', {
+		fetch(getBackendURL()+'/api/verifyemail/', {
 			method: 'POST',
 			headers: {
 				Accept: 'application/json',
