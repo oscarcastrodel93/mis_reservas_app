@@ -42,7 +42,6 @@ export default class SignupScreen extends Component {
 		.then((response) => response.json())
 		.then((responseJson) => {
 			let data = responseJson;
-			Reactotron.log(data);
 			if(data.success){
 				Alert.alert("", "Registro completado, revisa tu correo para activar la cuenta");
 				this.props.navigation.navigate('Login');

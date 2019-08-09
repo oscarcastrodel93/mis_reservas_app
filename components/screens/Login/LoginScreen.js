@@ -1,9 +1,10 @@
 import { StyleSheet, Text, View, KeyboardAvoidingView, Alert } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import { ToastService, getBackendURL } from '../../utils/Utils';
+import Reactotron from 'reactotron-react-native';
+import LoginHeader from './LoginHeader';
 import React, {Component} from 'react';
 import LoginForm from './LoginForm';
-import LoginHeader from './LoginHeader';
 
 export default class LoginScreen extends Component {
 
@@ -29,12 +30,13 @@ export default class LoginScreen extends Component {
 	}
 
 	_getToken = () => {
+		Reactotron.log("pasa111");
 		// Obtener el token al inicio de sesion
 		this.setState({loading: true})
         fetch(getBackendURL()+'/oauth/token', {
             method: 'POST',
             headers: {
-                Accept: 'application/json',
+                'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
@@ -75,7 +77,6 @@ export default class LoginScreen extends Component {
 		})
 		.then((response) => response.json())
 		.then((responseJson) => {
-			let data = responseJson;
 			if(responseJson.success){
 				this._setUserId(responseJson.data.id ? responseJson.data.id : false);
 			}

@@ -1,13 +1,14 @@
+import { getHumanDate, getBackendURL } from 'mis_reservas_app/components/utils/Utils';
 import { Container, Content, Text, Button, Header, Body, Title } from 'native-base';
-import { getHumanDate } from 'mis_reservas_app/components/utils/Utils';
 import AsyncStorage from '@react-native-community/async-storage';
+import { withNavigation } from 'react-navigation';
 import Reactotron from 'reactotron-react-native';
+import { StyleSheet, Alert } from 'react-native';
 import ResumenReserva from './ResumenReserva';
-import { StyleSheet } from 'react-native';
 import React, { Component } from 'react';
 import Modal from "react-native-modal";
 
-export default class ModalReservar extends Component {
+class ModalReservar extends Component {
 
     constructor(props){
         super(props);
@@ -15,17 +16,23 @@ export default class ModalReservar extends Component {
             modalVisible: props.modalVisible,
             loading: false,
             user_id: false,
+            access_token: false,
         }
     }
 
     componentDidMount(){
 		this._getUserId();
+		this._getToken();
+    }
+    
+    _getToken = async() => {
+		const access_token = await AsyncStorage.getItem('access_token');
+		this.setState({access_token});
 	}
 
     _getUserId = async() => {
 		const user_id = await AsyncStorage.getItem('user_id');
 		this.setState({user_id});
-		this.getHorarios();
 	}
 
     static getDerivedStateFromProps(nextProps, prevState) {
@@ -41,7 +48,7 @@ export default class ModalReservar extends Component {
     }
 
     reservarHorario = () => {
-        /* this.setState({loading: true});
+        this.setState({loading: true});
         fetch(getBackendURL()+'/api/reservar_horario/', {
 			method: 'POST',
 			headers: {
@@ -50,21 +57,24 @@ export default class ModalReservar extends Component {
 				'Authorization': 'Bearer '+this.state.access_token,
 			},
 			body: JSON.stringify({
-				horario: this.props.horario.id,
-				sede: this.props.sede.id,
-				user_id: formData.password,
+				horario_id: this.props.horario.id,
+				sede_id: this.props.sede.id,
+				cliente_id: this.state.user_id,
+				fecha: this.props.filtro_fecha,
 			}),
 		})
 		.then((response) => response.json())
 		.then((responseJson) => {
 			if(responseJson.success){
-				
-			}
+                Alert.alert("", "Reserva realizada! Recibirás un correo con los detalles de tu solicitud.");
+                let self = this; 
+                setTimeout(function(){ self.props.navigation.navigate('Home'); }, 3000);
+            }
 			else{
-				ToastService.showToast("Datos incorrectos");
+                ToastService.showToast("Error al crear la reserva, intentalo de nuevo en un momento.");
+                this.setState({loading: false});
 			}
-			this.setState({loading: false});
-		}); */
+		});
     }
 
     render() {
@@ -84,11 +94,13 @@ export default class ModalReservar extends Component {
                         />
                     <Content padder style={styles.contentButtons}>
                         <Button primary block
+                            disabled={this.state.loading}
                             style={styles.reservarButton}
                             onPress={this.reservarHorario} >
-                            <Text>Realizar reserva</Text>
+                            <Text>{this.state.loading ? 'Procesando...' : 'Realizar reserva'}</Text>
                         </Button>
-                        <Button light block 
+                        <Button light block
+                            disabled={this.state.loading} 
                             style={styles.backButton}
                             onPress={() => {this.setModalVisible(!this.state.modalVisible)}}>
                             <Text>Cancelar</Text>
@@ -99,6 +111,8 @@ export default class ModalReservar extends Component {
         )
     }
 }
+
+export default withNavigation(ModalReservar);
 
 const styles = StyleSheet.create({
     reservarButton: {

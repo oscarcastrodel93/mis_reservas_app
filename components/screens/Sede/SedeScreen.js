@@ -92,7 +92,9 @@ class SedeScreen extends Component {
 					</Card>
 				</Content>
 				<Content padder style={styles.reservarButton}>
-					<Button block disabled={!this.state.selected_horario.id} onPress={() => {this.setModalVisible(!this.state.modalVisible)}}>
+					<Button block 
+						disabled={!this.state.selected_horario.id} 
+						onPress={() => {this.setModalVisible(!this.state.modalVisible)}} >
 						<Text>{this.state.selected_horario.id ? 'Reservar' : 'Seleccione un horario'}</Text>
 					</Button>
 				</Content>
