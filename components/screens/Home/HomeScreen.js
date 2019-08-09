@@ -1,5 +1,5 @@
 import { getCurrentDateDB, getCurrentTime, ToastService, getBackendURL } from '../../utils/Utils';
-import { Container, Content, Item, Input, Text, Button, Icon } from 'native-base';
+import { Container, Content, Item, Input, Text, Button, Icon, Spinner } from 'native-base';
 import AsyncStorage from '@react-native-community/async-storage';
 import FiltroModal from './FiltrarSedes/FiltroModal';
 import Reactotron from 'reactotron-react-native';
@@ -93,17 +93,13 @@ export default class HomeScreen extends Component {
 						getSedesActivas={this.getSedesActivas}
 						updateValue={this.updateValue}
 						/>
-					
+					{this.state.loading ? <Spinner color='83a7fc' /> : null}
 					<SedesList 
 						sedes={this.state.sedes} 
 						filtro={this.state.filtro}
 						filtro_fecha={this.state.filtro_fecha}
 						/>
 					
-					
-					{/* <Button onPress={this.getSedesActivas} >
-						<Text>Buscar</Text>
-					</Button> */}
 				</Content>
 
 				<HomeFooter 
