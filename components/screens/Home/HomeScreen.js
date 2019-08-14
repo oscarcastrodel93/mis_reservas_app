@@ -3,13 +3,13 @@ import { Container, Content, Item, Input, Text, Button, Icon, Spinner } from 'na
 import AsyncStorage from '@react-native-community/async-storage';
 import FiltroModal from './FiltrarSedes/FiltroModal';
 import Reactotron from 'reactotron-react-native';
-import { StyleSheet } from 'react-native';
+import { withNavigationFocus } from 'react-navigation';
 import React, {Component} from 'react';
 import HomeHeader from './HomeHeader';
 import HomeFooter from './HomeFooter';
 import SedesList from './SedesList';
 
-export default class HomeScreen extends Component {
+class HomeScreen extends Component {
 
 	constructor(props){
 		super(props);
@@ -27,6 +27,12 @@ export default class HomeScreen extends Component {
 
 	componentDidMount(){
 		this._getToken();
+	}
+
+	componentWillReceiveProps(next_props) {
+		if (next_props.isFocused && this.props.isFocused === false) {
+			this.getSedesActivas();
+		}
 	}
 
 	_logOut = async () => {
@@ -93,13 +99,14 @@ export default class HomeScreen extends Component {
 						getSedesActivas={this.getSedesActivas}
 						updateValue={this.updateValue}
 						/>
-					{this.state.loading ? <Spinner color='83a7fc' /> : null}
+					
 					<SedesList 
 						sedes={this.state.sedes} 
 						filtro={this.state.filtro}
 						filtro_fecha={this.state.filtro_fecha}
 						/>
-					
+						
+					{this.state.loading ? <Spinner color='83a7fc' /> : null}
 				</Content>
 
 				<HomeFooter 
@@ -109,3 +116,5 @@ export default class HomeScreen extends Component {
 		);
 	}
 }
+
+export default withNavigationFocus(HomeScreen)

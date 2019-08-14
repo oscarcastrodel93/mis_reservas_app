@@ -104,6 +104,8 @@ class SedeScreen extends Component {
 					modalVisible={this.state.modalVisible}
 					setModalVisible={this.setModalVisible}
 					filtro_fecha={this.state.filtro_fecha}
+					getHorarios={this.getHorarios}
+					updateValue={this.updateValue}
 					/>
             </Container>
         )

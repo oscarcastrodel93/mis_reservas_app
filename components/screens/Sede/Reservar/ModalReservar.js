@@ -1,4 +1,4 @@
-import { getHumanDate, getBackendURL } from 'mis_reservas_app/components/utils/Utils';
+import { getHumanDate, getBackendURL, ToastService } from 'mis_reservas_app/components/utils/Utils';
 import { Container, Content, Text, Button, Header, Body, Title } from 'native-base';
 import AsyncStorage from '@react-native-community/async-storage';
 import { withNavigation } from 'react-navigation';
@@ -66,15 +66,31 @@ class ModalReservar extends Component {
 		.then((response) => response.json())
 		.then((responseJson) => {
 			if(responseJson.success){
-                Alert.alert("", "Reserva realizada! Recibirás un correo con los detalles de tu solicitud.");
+                // Alert.alert("", "Reserva realizada! Recibirás un correo con los detalles de tu solicitud.");
                 let self = this; 
-                setTimeout(function(){ self.props.navigation.navigate('Home'); }, 3000);
+                Alert.alert(
+                    '', 'Reserva realizada! Recibirás un correo con los detalles de tu solicitud.',
+                    [{text: 'OK', onPress: () => self.props.navigation.navigate('Home')}],
+                    {cancelable: false},
+                );
             }
 			else{
-                ToastService.showToast("Error al crear la reserva, intentalo de nuevo en un momento.");
+                // Mostrar error al realizar la reserva
                 this.setState({loading: false});
+                Alert.alert(
+                    '', responseJson.message,
+                    [{text: 'OK', onPress: () => {
+                        this.props.updateValue('selected_horario', {id: false}); // Limpiar el horario seleccionado
+                        this.setModalVisible(false); // Ocultar el modal
+                        this.props.getHorarios(); // Consultar de nuevo los horarios disponibles
+                    }}],
+                    {cancelable: false},
+                );
 			}
-		});
+		}).catch((error) => {
+            Alert.alert("", "Error al crear la reserva, intentalo de nuevo en un momento.");
+            this.setState({loading: false});
+        });
     }
 
     render() {
