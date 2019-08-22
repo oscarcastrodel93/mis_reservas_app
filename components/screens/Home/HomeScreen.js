@@ -89,7 +89,7 @@ class HomeScreen extends Component {
 
 				<Content>
 					<Item regular>
-						<Input placeholder='Filtrar' onChangeText={(filtro) => this.setState({filtro})}/>
+						<Input placeholder='Escribe el nombre de la sede' onChangeText={(filtro) => this.setState({filtro})}/>
 						<Icon name='funnel' onPress={() => {this.setModalVisible(!this.state.modalVisible)}}/>
 					</Item>
 
@@ -109,8 +109,8 @@ class HomeScreen extends Component {
 					{this.state.loading ? <Spinner color='83a7fc' /> : null}
 				</Content>
 
-				<HomeFooter 
-					logOut={this._logOut}/>
+				{/* <HomeFooter 
+					logOut={this._logOut}/> */}
 				
 			</Container>
 		);

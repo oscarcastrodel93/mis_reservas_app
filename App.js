@@ -1,30 +1,66 @@
-import { createStackNavigator, createSwitchNavigator, createAppContainer } from 'react-navigation';
+import { createStackNavigator, createSwitchNavigator, createAppContainer, createBottomTabNavigator } from 'react-navigation';
 import AuthLoadingScreen from './components/screens/Auth/AuthLoadingScreen';
-import SignupScreen from './components/screens/Signup/SignupScreen';
-import LoginScreen from './components/screens/Login/LoginScreen';
-import HomeScreen from './components/screens/Home/HomeScreen';
-import SedeScreen from './components/screens/Sede/SedeScreen';
+import { AuthStack, HomeStack, ReservasStack, PerfilStack } from './components/app/Routes';
 import React, {Component} from 'react';
-import { Root } from "native-base";
+import { Root, Icon } from "native-base";
 
-const AppStack = createStackNavigator({ 
-	Home: HomeScreen,
-	Sede: SedeScreen,
-},{
-	headerMode: 'none',
+const AppNavigator = createBottomTabNavigator({
+	Home: {
+        screen: HomeStack,
+        navigationOptions: () => ({
+            tabBarIcon: ({tintColor}) => (
+                <Icon
+                    name="home"
+                    style={{color: tintColor}}
+                    size={24}
+                />
+            )
+        })
+    },
+	Reservas: {
+        screen: ReservasStack,
+        navigationOptions: () => ({
+            tabBarIcon: ({tintColor}) => (
+                <Icon
+                    name="bookmarks"
+                    style={{color: tintColor}}
+                    size={24}
+                />
+            )
+        })
+    },
+	Perfil: {
+        screen: PerfilStack,
+        navigationOptions: () => ({
+            tabBarIcon: ({tintColor}) => (
+                <Icon
+                    name="person"
+                    style={{color: tintColor}}
+                    size={24}
+                />
+            )
+        })
+    },
+}, {
+	initialRouteName: 'Home',
 	navigationOptions: {
-	  headerVisible: false,
-	}
-});
-const AuthStack = createStackNavigator({ 
-	Login: LoginScreen,
-	Signup: SignupScreen,
+		tabBarVisible: true,
+	},
+	tabBarOptions: {
+        showLabel: false, // hide labels
+        activeTintColor: 'white', // active icon color
+        inactiveTintColor: 'lightgray',  // inactive icon color
+        style: {
+            backgroundColor: '#3F51B5' // TabBar background
+        },
+        keyboardHidesTabBar: true,
+    }
 });
 
 const AppContainer = createAppContainer(createSwitchNavigator(
 	{
 		AuthLoading: AuthLoadingScreen,
-		App: AppStack,
+		App: AppNavigator,
 		Auth: AuthStack,
 	},
 	{
