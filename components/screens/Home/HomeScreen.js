@@ -1,12 +1,12 @@
-import { getCurrentDateDB, getCurrentTime, ToastService, getBackendURL } from '../../utils/Utils';
 import { Container, Content, Item, Input, Text, Button, Icon, Spinner } from 'native-base';
 import AsyncStorage from '@react-native-community/async-storage';
-import FiltroModal from './FiltrarSedes/FiltroModal';
-import Reactotron from 'reactotron-react-native';
 import { withNavigationFocus } from 'react-navigation';
+import Reactotron from 'reactotron-react-native';
 import React, {Component} from 'react';
-import HomeHeader from './HomeHeader';
-import HomeFooter from './HomeFooter';
+
+import { getCurrentDateDB, getCurrentTime, ToastService, getBackendURL } from '../../utils/Utils';
+import ScreenHeader from '../../elements/ScreenHeader';
+import FiltroModal from './FiltrarSedes/FiltroModal';
 import SedesList from './SedesList';
 
 class HomeScreen extends Component {
@@ -85,7 +85,7 @@ class HomeScreen extends Component {
 	render() {
 		return (
 			<Container>
-				<HomeHeader />
+				<ScreenHeader title="Sedes disponibles" />
 
 				<Content>
 					<Item regular>
@@ -108,9 +108,6 @@ class HomeScreen extends Component {
 						
 					{this.state.loading ? <Spinner color='83a7fc' /> : null}
 				</Content>
-
-				{/* <HomeFooter 
-					logOut={this._logOut}/> */}
 				
 			</Container>
 		);

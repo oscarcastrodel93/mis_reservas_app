@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import { Container, Header, Left, Body, Right, Button, Icon, Title } from 'native-base';
 
-export default class HomeHeader extends Component {
+export default class ScreenHeader extends Component {
+    constructor(props){
+        super(props);
+    }
+
     render() {
         return (
             <Header>
                 <Body>
-                    <Title>Sedes disponibles</Title>
+                    <Title>{this.props.title}</Title>
                 </Body>
                 <Right>
                     {/* <Button transparent>
