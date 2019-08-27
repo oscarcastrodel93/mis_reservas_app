@@ -5,6 +5,11 @@ import { StyleSheet, Alert } from 'react-native';
 import Reactotron from 'reactotron-react-native'
 import React, { Component } from 'react'
 
+/* 
+	TODO:
+	- Cuando se abra el teclado, el boton de registrarse quede abajo
+*/
+
 export default class SignupForm extends Component {
 
     constructor(props){
@@ -52,6 +57,7 @@ export default class SignupForm extends Component {
     render() {
 		let loading = this.props.loading;
 		let invalid_email = this.props.invalid_email;
+		let invalid_celular = this.props.invalid_celular;
         return (
 			<Container>
 				<Content padder>
@@ -76,7 +82,7 @@ export default class SignupForm extends Component {
 							autoCapitalize={'none'}
 							keyboardType={'email-address'}
 							maxLength={40}
-							onBlur={() => this.props.verifyEmail(this.state.email)}
+							onBlur={() => this.props.verifyField('email', this.state.email)}
 							error={invalid_email}
 							updateValue={this.updateValue}
 							/>
@@ -85,6 +91,8 @@ export default class SignupForm extends Component {
 							name="celular"
 							keyboardType={'phone-pad'}
 							maxLength={10}
+							onBlur={() => this.props.verifyField('celular', this.state.celular)}
+							error={invalid_celular}
 							updateValue={this.updateValue}
 							/>
 						<InputTextField 

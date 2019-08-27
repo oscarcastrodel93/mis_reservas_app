@@ -6,6 +6,8 @@ import React, {Component} from 'react';
 import { Alert } from 'react-native';
 import SignupForm from './SignupForm';
 
+// To Do: Hacer mas parametrizable la verificacion de campos
+
 export default class SignupScreen extends Component {
 
 	static navigationOptions = {
@@ -16,14 +18,20 @@ export default class SignupScreen extends Component {
 		super();
 		this.state = {
 			loading: false,
-			invalid_email: false,
 			access_token: false,
+			
+			invalid_email: false,
+			invalid_celular: false,
 		}
 	}
 
 	signUp = (formData) => {
 		if(this.state.invalid_email){
-			ToastService.showToast("Email no disponible", "danger");
+			ToastService.showToast("Email ya registrado", "danger");
+			return;
+		}
+		else if(this.state.invalid_celular){
+			ToastService.showToast("Celular ya registrado", "danger");
 			return;
 		}
 
@@ -62,10 +70,12 @@ export default class SignupScreen extends Component {
 		this._getToken();
 	}
 
-	verifyEmail = (email) => {
+	verifyField = (field, value) => {
+		if(value=='') return;
 		let invalid  = false;
-		this.setState({loading: true, invalid_email: invalid});
-		fetch(getBackendURL()+'/api/verifyemail/', {
+		let field_validate = 'invalid_'+field;
+		this.setState({loading: true, [field_validate]: invalid});
+		fetch(getBackendURL()+'/api/verify_field/', {
 			method: 'POST',
 			headers: {
 				Accept: 'application/json',
@@ -73,16 +83,17 @@ export default class SignupScreen extends Component {
 				'Authorization': 'Bearer '+this.state.access_token,
 			},
 			body: JSON.stringify({
-				email: email
+				field: field,
+				value: value,
 			}),
 		})
 		.then((response) => response.json())
 		.then((responseJson) => {
 			if(!responseJson.success){
-				ToastService.showToast("Email no disponible", "danger");
+				ToastService.showToast(responseJson.message, "danger");
 				invalid  = true;
 			}
-			this.setState({loading: false, invalid_email: invalid});
+			this.setState({loading: false, [field_validate]: invalid});
 		});
 	}
 
@@ -91,8 +102,9 @@ export default class SignupScreen extends Component {
 			<Container>
 				<SignupForm 
 					signUp={this.signUp} 
-					verifyEmail={this.verifyEmail} 
+					verifyField={this.verifyField} 
 					invalid_email={this.state.invalid_email} 
+					invalid_celular={this.state.invalid_celular} 
 					loading={this.state.loading}
 					/>
 			</Container>
