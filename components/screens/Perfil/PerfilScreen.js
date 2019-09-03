@@ -3,6 +3,8 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { withNavigation } from 'react-navigation';
 import React, { Component } from 'react';
 
+import ScreenHeader from '../../elements/ScreenHeader';
+
 class PerfilScreen extends Component {
     constructor(props) {
         super(props);
@@ -18,6 +20,7 @@ class PerfilScreen extends Component {
     render() {
         return (
         <Container>
+            <ScreenHeader title="Mi Perfíl"/>
             <Content>
                 <Button
                     onPress={this._logOut}>

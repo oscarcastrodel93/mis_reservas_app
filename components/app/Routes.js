@@ -1,6 +1,7 @@
 import { createStackNavigator, } from 'react-navigation';
 import React, {Component} from 'react';
 
+import DetalleReservaScreen from '../screens/Reservas/DetalleReserva/DetalleReservaScreen';
 import ReservasScreen from '../screens/Reservas/ReservasScreen';
 import PerfilScreen from '../screens/Perfil/PerfilScreen';
 import SignupScreen from '../screens/Signup/SignupScreen';
@@ -20,6 +21,7 @@ export const HomeStack = createStackNavigator({
 
 export const ReservasStack = createStackNavigator({ 
 	Reservas: ReservasScreen,
+	DetalleReserva: DetalleReservaScreen,
 },{
 	headerMode: 'none',
 	navigationOptions: {

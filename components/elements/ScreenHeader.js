@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
 import { Container, Header, Left, Body, Right, Button, Icon, Title } from 'native-base';
+import { withNavigation } from 'react-navigation';
+import React, { Component } from 'react';
 
-export default class ScreenHeader extends Component {
+class ScreenHeader extends Component {
     constructor(props){
         super(props);
     }
@@ -9,6 +10,14 @@ export default class ScreenHeader extends Component {
     render() {
         return (
             <Header>
+                {this.props.return_screen ? 
+                <Left>
+                    <Button transparent
+                        onPress={() => this.props.navigation.navigate(this.props.return_screen)}>
+                        <Icon name='arrow-back' />
+                    </Button>
+                </Left>
+                : null}
                 <Body>
                     <Title>{this.props.title}</Title>
                 </Body>
@@ -21,3 +30,5 @@ export default class ScreenHeader extends Component {
         );
     }
 }
+
+export default withNavigation(ScreenHeader);

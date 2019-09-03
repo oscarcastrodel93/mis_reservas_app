@@ -1,8 +1,13 @@
-import { Content, List, ListItem, Thumbnail, Text, Left, Body, Right, Button } from 'native-base';
+import { Icon, ListItem, Thumbnail, Text, Left, Body, Right, Button } from 'native-base';
 import { withNavigation } from 'react-navigation';
+import { StyleSheet, Alert } from 'react-native';
 import React, { Component } from 'react';
 
+import { getHumanDate } from '../../utils/Utils';
+import { enums } from '../../utils/Enums';
+
 class ReservaItem extends Component {
+
     constructor(props){
         super(props);
         this.state = {
@@ -10,20 +15,27 @@ class ReservaItem extends Component {
         }
     }
 
+    verDetalles = () => {
+        this.props.navigation.navigate('DetalleReserva', {
+            reserva: this.state.reserva,
+        });
+    }
+
     render() {
         let reserva = this.state.reserva;
         return (
-            <ListItem thumbnail >
-                <Left>
-                    {/* <Thumbnail square source={require('../../../src/logo.png')} /> */}
-                </Left>
+            <ListItem onPress={this.verDetalles}>
                 <Body>
-                    <Text>{reserva.fecha}</Text>
+                    <Text>{reserva.sede.nombre}</Text>
+                    <Text note numberOfLines={1}>
+                        {getHumanDate(reserva.fecha)}
+                    </Text>
+                    <Text note numberOfLines={1}>
+                        {reserva.horario.nombre}
+                    </Text>
                 </Body>
                 <Right>
-                    <Button transparent>
-                        <Text>Ver</Text>
-                    </Button>
+                    <Icon name="arrow-forward" />
                 </Right>
             </ListItem>
         )

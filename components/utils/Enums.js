@@ -42,4 +42,11 @@ export const system_enums = {
         '11': 'Noviembre',
         '12': 'Diciembre',
     },
+    'estado_reserva_js': {
+        '0': 'Reservado',
+        '1': 'Confirmado',
+        '2': 'Cumplido',
+        '3': 'No cumplido',
+        '4': 'Cancelado',
+    }
 }

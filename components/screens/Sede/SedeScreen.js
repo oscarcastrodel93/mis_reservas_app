@@ -2,11 +2,12 @@ import { Container, Content, Card, Button, Text, Spinner, CardItem } from 'nativ
 import AsyncStorage from '@react-native-community/async-storage';
 import { withNavigation } from 'react-navigation';
 import Reactotron from 'reactotron-react-native';
+import { StyleSheet } from 'react-native';
+import React, { Component } from 'react';
+
 import { getHumanDate, getBackendURL } from '../../utils/Utils';
 import ModalReservar from './Reservar/ModalReservar';
-import { StyleSheet } from 'react-native';
 import HorariosList from './HorariosList';
-import React, { Component } from 'react';
 import SedeHeader from './SedeHeader';
 import SedeInfo from './SedeInfo';
 

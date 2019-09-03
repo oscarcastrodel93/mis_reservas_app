@@ -89,6 +89,7 @@ class HomeScreen extends Component {
 
 				<Content>
 					<Item regular>
+						<Icon name='search' style={{color: "lightgray"}}/>
 						<Input placeholder='Escribe el nombre de la sede' onChangeText={(filtro) => this.setState({filtro})}/>
 						<Icon name='funnel' onPress={() => {this.setModalVisible(!this.state.modalVisible)}}/>
 					</Item>
