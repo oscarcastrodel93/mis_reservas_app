@@ -59,6 +59,10 @@ export default class ReservasScreen extends Component {
 			if(!responseJson.success){
 				ToastService.showToast(responseJson.message);
 			}
+		}).catch((error) => {
+			Reactotron.log(error);
+			this.setState({loading: false});
+			ToastService.showToast("Error al cargar las reservas.");
 		});
 	}
 

@@ -1,5 +1,6 @@
 import { Container, Header, Left, Body, Right, Button, Icon, Title } from 'native-base';
 import { withNavigation } from 'react-navigation';
+import { StyleSheet, Alert } from 'react-native';
 import React, { Component } from 'react';
 
 class ScreenHeader extends Component {

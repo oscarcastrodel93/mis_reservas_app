@@ -1,14 +1,13 @@
-import { Container, Content, Card, CardItem, H2, Right, Text } from 'native-base';
+import { Container, Content, Button, Text } from 'native-base';
 import AsyncStorage from '@react-native-community/async-storage';
 import { withNavigation } from 'react-navigation';
 import Reactotron from 'reactotron-react-native';
-import NumberFormat from 'react-number-format';
+import { StyleSheet, Alert } from 'react-native';
 import React, {Component} from 'react';
 
-import { ToastService, getBackendURL } from '../../../utils/Utils';
 import ScreenHeader from '../../../elements/ScreenHeader';
-import { system_enums } from '../../../utils/Enums';
-import ReservasList from '../ReservasList';
+import ModalCancelar from './ModalCancelar';
+import InfoReserva from './InfoReserva';
 
 class DetalleReservaScreen extends Component {
     constructor(props) {
@@ -23,51 +22,49 @@ class DetalleReservaScreen extends Component {
 			reserva: this.props.navigation.getParam('reserva', {}),
 		});
     }
-    
-    verPrecio = (reserva) => {
-        if(reserva.horario){
-            return <NumberFormat 
-                value={reserva.horario.precio} 
-                displayType={'text'} 
-                thousandSeparator={true} 
-                prefix={'$'} 
-                decimalScale={0}
-                renderText={value => <Text>{value}</Text>}/>
-        }
-        else{
-            return null;
-        }
-    }
+
+    setModalVisible = (visible) => {
+		this.setState({modalVisible: visible});
+	}
 
     render() {
-        let reserva = this.state.reserva;
         return (
             <Container>
-                <ScreenHeader 
-                    title="Detalle Reserva"
-                    return_screen='DetalleReserva'/>
+                <ScreenHeader title="Detalle Reserva" return_screen='Reservas' />
                 <Content>
-                    <Card transparent>
-                        <CardItem bordered header>
-                            <H2>Reserva #{reserva.consecutivo}</H2>
-                        </CardItem>
-                        <CardItem>
-                            <Text>Sede: {reserva.sede ? reserva.sede.nombre : null }</Text>
-                        </CardItem>
-                        <CardItem>
-                            <Text>Estado: {system_enums['estado_reserva_js'][reserva.estado]}</Text>
-                        </CardItem>
-                        <CardItem bordered header>
-                            <Text>Precio: </Text>
-                            <Right>
-                                {this.verPrecio(reserva)}
-                            </Right>
-                        </CardItem>
-                    </Card>
+                    <InfoReserva reserva={this.state.reserva} />
                 </Content>
+                <Content padder style={styles.buttons}>
+					<Button block light style={styles.button}>
+						<Text>Calificar</Text>
+					</Button>
+                    <Button block warning 
+                        onPress={() => {this.setModalVisible(!this.state.modalVisible)}}
+                        style={styles.button}>
+						<Text>Cancelar Reserva</Text>
+					</Button>
+
+                    <ModalCancelar 
+                        reserva={this.state.reserva}
+                        modalVisible={this.state.modalVisible}
+                        setModalVisible={this.setModalVisible}
+                        />
+				</Content>
             </Container>
         );
     }
 }
+
+const styles = StyleSheet.create({
+	buttons: {
+		position: 'absolute', 
+		bottom: 0, 
+		left:0, 
+		right:0
+	},
+	button: {
+		marginTop: 10,
+	},
+});
 
 export default withNavigation(DetalleReservaScreen)
