@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage';
 import { Container, Content, Spinner } from 'native-base';
+import { withNavigationFocus } from 'react-navigation';
 import Reactotron from 'reactotron-react-native';
 import React, {Component} from 'react';
 
@@ -7,7 +8,7 @@ import { ToastService, getBackendURL } from '../../utils/Utils';
 import ScreenHeader from '../../elements/ScreenHeader';
 import ReservasList from './ReservasList';
 
-export default class ReservasScreen extends Component {
+class ReservasScreen extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -19,6 +20,12 @@ export default class ReservasScreen extends Component {
 
     componentDidMount(){
         this._getToken();
+    }
+    
+    componentWillReceiveProps(next_props) {
+		if (next_props.isFocused && this.props.isFocused === false) {
+			this.getReservas();
+		}
 	}
 
 	_getToken = async() => {
@@ -79,3 +86,5 @@ export default class ReservasScreen extends Component {
         );
     }
 }
+
+export default withNavigationFocus(ReservasScreen);

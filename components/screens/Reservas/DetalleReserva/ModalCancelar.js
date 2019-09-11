@@ -42,8 +42,8 @@ class ModalCancelar extends Component {
     }
 
     cancelarReserva = () => {
-        /* this.setState({loading: true});
-        fetch(getBackendURL()+'/api/reservar_horario/', {
+        this.setState({loading: true});
+        fetch(getBackendURL()+'/api/cancelar_reserva/', {
 			method: 'POST',
 			headers: {
 				Accept: 'application/json',
@@ -56,11 +56,18 @@ class ModalCancelar extends Component {
 		})
 		.then((response) => response.json())
 		.then((responseJson) => {
-			Reactotron.log(responseJson);
+            Reactotron.log(responseJson);
+            if(responseJson.success){
+				this.props.navigation.navigate('Reservas');
+            }
+            else{
+                Alert.alert("", "Error al cancelar la reserva, intentalo de nuevo en un momento.");
+                this.setState({loading: false});
+            }
 		}).catch((error) => {
-            Alert.alert("", "Error al crear la reserva, intentalo de nuevo en un momento.");
+            Alert.alert("", "Error al cancelar la reserva, intentalo de nuevo en un momento.");
             this.setState({loading: false});
-        }); */
+        });
     }
 
     render() {

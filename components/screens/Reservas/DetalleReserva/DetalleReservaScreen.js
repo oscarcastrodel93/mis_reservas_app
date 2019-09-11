@@ -23,6 +23,13 @@ class DetalleReservaScreen extends Component {
 		});
     }
 
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if(nextProps.reserva){
+            return { reserva: nextProps.reserva } // <- this is setState equivalent
+        }
+        return null;
+    }
+
     setModalVisible = (visible) => {
 		this.setState({modalVisible: visible});
 	}
@@ -35,14 +42,16 @@ class DetalleReservaScreen extends Component {
                     <InfoReserva reserva={this.state.reserva} />
                 </Content>
                 <Content padder style={styles.buttons}>
-					<Button block light style={styles.button}>
+					{/* <Button block light style={styles.button}>
 						<Text>Calificar</Text>
-					</Button>
+                    </Button> */}
+                    
+                    {this.state.reserva.estado===0 || this.state.reserva.estado===1 ?
                     <Button block warning 
                         onPress={() => {this.setModalVisible(!this.state.modalVisible)}}
                         style={styles.button}>
 						<Text>Cancelar Reserva</Text>
-					</Button>
+                    </Button> : null }
 
                     <ModalCancelar 
                         reserva={this.state.reserva}

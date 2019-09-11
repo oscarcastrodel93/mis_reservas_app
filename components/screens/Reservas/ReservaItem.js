@@ -15,6 +15,10 @@ class ReservaItem extends Component {
         }
     }
 
+    static getDerivedStateFromProps(nextProps, prevState) {
+        return { reserva: nextProps.reserva } // <- this is setState equivalent
+    }
+
     verDetalles = () => {
         this.props.navigation.navigate('DetalleReserva', {
             reserva: this.state.reserva,
