@@ -1,12 +1,13 @@
-import { getHumanDate, getBackendURL, ToastService } from 'mis_reservas_app/components/utils/Utils';
 import { Container, Content, Text, Button, Header, Body, Title } from 'native-base';
 import AsyncStorage from '@react-native-community/async-storage';
 import { withNavigation } from 'react-navigation';
 import Reactotron from 'reactotron-react-native';
 import { StyleSheet, Alert } from 'react-native';
-import ResumenReserva from './ResumenReserva';
 import React, { Component } from 'react';
 import Modal from "react-native-modal";
+
+import { getHumanDate, getBackendURL, ToastService } from 'mis_reservas_app/components/utils/Utils';
+import ResumenReserva from './ResumenReserva';
 
 class ModalReservar extends Component {
 

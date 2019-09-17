@@ -56,7 +56,7 @@ class ModalCancelar extends Component {
 		})
 		.then((response) => response.json())
 		.then((responseJson) => {
-            Reactotron.log(responseJson);
+            // Reactotron.log(responseJson);
             if(responseJson.success){
 				this.props.navigation.navigate('Reservas');
             }
