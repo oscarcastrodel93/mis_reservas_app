@@ -1,4 +1,4 @@
-import { Container, Content, Item, Input, Text, Button, Icon, Card, CardItem, Right, Left } from 'native-base';
+import { Container, Content, Item, Input, Text, Button, Icon, Card, CardItem, Right, Left, Spinner } from 'native-base';
 import AsyncStorage from '@react-native-community/async-storage';
 import { withNavigation } from 'react-navigation';
 import React, { Component } from 'react';
@@ -7,7 +7,7 @@ import { Alert, StyleSheet } from 'react-native';
 import { ToastService, getBackendURL } from '../../utils/Utils';
 import ScreenHeader from '../../elements/ScreenHeader';
 
-class PerfilScreen extends Component {
+class ProfileScreen extends Component {
 
     constructor(props) {
         super(props);
@@ -80,7 +80,7 @@ class PerfilScreen extends Component {
 			this.setState({loading: false});
 			ToastService.showToast("Error al cargar los datos.");
 		});
-	}
+    }
 
     render() {
         let { cliente } = this.state;
@@ -90,7 +90,8 @@ class PerfilScreen extends Component {
             <Content>
                 <Card transparent>
                     <CardItem bordered header>
-                        <Text>{cliente.nombres} {cliente.apellidos}</Text>
+                        {this.state.loading ? <Text>Cargando...</Text> : 
+                        <Text>{cliente.nombres} {cliente.apellidos}</Text> }
                     </CardItem>
                     <CardItem bordered>
                         <Text>Email:</Text>
@@ -103,6 +104,14 @@ class PerfilScreen extends Component {
                         <Right>
                             <Text>{cliente.celular}</Text>
                         </Right>
+                    </CardItem>
+                    <CardItem bordered button onPress={() => this.props.navigation.navigate('EditProfile')}>
+                        <Icon active name="create" />
+                        <Text>Editar perfil</Text>
+                    </CardItem>
+                    <CardItem bordered button>
+                        <Icon active name="create" />
+                        <Text>Cambiar contraseña</Text>
                     </CardItem>
                 </Card>
             </Content>
@@ -126,4 +135,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default withNavigation(PerfilScreen);
+export default withNavigation(ProfileScreen);

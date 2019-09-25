@@ -3,7 +3,8 @@ import React, {Component} from 'react';
 
 import DetalleReservaScreen from '../screens/Reservas/DetalleReserva/DetalleReservaScreen';
 import ReservasScreen from '../screens/Reservas/ReservasScreen';
-import PerfilScreen from '../screens/Perfil/PerfilScreen';
+import ProfileScreen from '../screens/Profile/ProfileScreen';
+import EditProfileScreen from '../screens/Profile/EditProfile/EditProfileScreen';
 import SignupScreen from '../screens/Signup/SignupScreen';
 import LoginScreen from '../screens/Login/LoginScreen';
 import HomeScreen from '../screens/Home/HomeScreen';
@@ -15,7 +16,7 @@ export const HomeStack = createStackNavigator({
 },{
 	headerMode: 'none',
 	navigationOptions: {
-	  headerVisible: false,
+	  	headerVisible: false,
 	}
 });
 
@@ -25,18 +26,29 @@ export const ReservasStack = createStackNavigator({
 },{
 	headerMode: 'none',
 	navigationOptions: {
-	  headerVisible: false,
+	  	headerVisible: false,
 	}
 });
 
-export const PerfilStack = createStackNavigator({ 
-	Perfil: PerfilScreen,
+export const ProfileStack = createStackNavigator({ 
+	Profile: ProfileScreen,
+	EditProfile: EditProfileScreen,
 },{
 	headerMode: 'none',
 	navigationOptions: {
-	  headerVisible: false,
+	  	headerVisible: false,
 	}
 });
+
+ProfileStack.navigationOptions = ({ navigation }) => {
+	let tabBarVisible = true;
+	if(navigation.state.routes[navigation.state.index].routeName === 'EditProfile'){
+		tabBarVisible = false;
+	} 
+    return {
+      	tabBarVisible,
+    };
+};
 
 export const AuthStack = createStackNavigator({ 
 	Login: LoginScreen,

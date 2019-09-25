@@ -1,6 +1,6 @@
 import { createStackNavigator, createSwitchNavigator, createAppContainer, createBottomTabNavigator } from 'react-navigation';
 import AuthLoadingScreen from './components/screens/Auth/AuthLoadingScreen';
-import { AuthStack, HomeStack, ReservasStack, PerfilStack } from './components/app/Routes';
+import { AuthStack, HomeStack, ReservasStack, ProfileStack } from './components/app/Routes';
 import React, {Component} from 'react';
 import { Root, Icon } from "native-base";
 
@@ -29,8 +29,8 @@ const AppNavigator = createBottomTabNavigator({
             )
         })
     },
-	Perfil: {
-        screen: PerfilStack,
+	Profile: {
+        screen: ProfileStack,
         navigationOptions: () => ({
             tabBarIcon: ({tintColor}) => (
                 <Icon
