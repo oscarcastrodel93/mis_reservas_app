@@ -14,7 +14,7 @@ class ProfileScreen extends Component {
         this.state = {
             access_token: false,
             user_id: false,
-            cliente: {}
+            profile: {}
         };
     }
     
@@ -69,7 +69,7 @@ class ProfileScreen extends Component {
 		.then((responseJson) => {
             // Reactotron.log(responseJson.data);
             this.setState({
-				cliente: responseJson.success ? responseJson.data : {},
+				profile: responseJson.success ? responseJson.data : {},
 				loading: false,
 			});
 			if(!responseJson.success){
@@ -82,8 +82,14 @@ class ProfileScreen extends Component {
 		});
     }
 
+    editProfile = () => {
+        this.props.navigation.navigate('EditProfile', {
+            profile: this.state.profile,
+        });
+    }
+
     render() {
-        let { cliente } = this.state;
+        let { profile } = this.state;
         return (
         <Container>
             <ScreenHeader title="Mi Perfíl"/>
@@ -91,21 +97,21 @@ class ProfileScreen extends Component {
                 <Card transparent>
                     <CardItem bordered header>
                         {this.state.loading ? <Text>Cargando...</Text> : 
-                        <Text>{cliente.nombres} {cliente.apellidos}</Text> }
+                        <Text>{profile.nombres} {profile.apellidos}</Text> }
                     </CardItem>
                     <CardItem bordered>
                         <Text>Email:</Text>
                         <Right>
-                            <Text>{cliente.email}</Text>
+                            <Text>{profile.email}</Text>
                         </Right>
                     </CardItem>
                     <CardItem bordered>
                         <Text>Celular:</Text>
                         <Right>
-                            <Text>{cliente.celular}</Text>
+                            <Text>{profile.celular}</Text>
                         </Right>
                     </CardItem>
-                    <CardItem bordered button onPress={() => this.props.navigation.navigate('EditProfile')}>
+                    <CardItem bordered button onPress={this.editProfile}>
                         <Icon active name="create" />
                         <Text>Editar perfil</Text>
                     </CardItem>

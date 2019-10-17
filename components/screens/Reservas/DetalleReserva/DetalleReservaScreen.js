@@ -17,15 +17,9 @@ class DetalleReservaScreen extends Component {
         };
     }
 
-    componentDidMount(){
-		this.setState({
-			reserva: this.props.navigation.getParam('reserva', {}),
-		});
-    }
-
     static getDerivedStateFromProps(nextProps, prevState) {
-        if(nextProps.reserva){
-            return { reserva: nextProps.reserva } // <- this is setState equivalent
+        if(nextProps.navigation.getParam('reserva', false)){
+            return { reserva: nextProps.navigation.getParam('reserva', {}) } // <- this is setState equivalent
         }
         return null;
     }

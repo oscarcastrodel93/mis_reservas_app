@@ -2,8 +2,8 @@ import { Container, Header, Content, Form, Item, Input, Button, Label, Text  } f
 import InputTextField from 'mis_reservas_app/components/fields/InputTextField';
 import { ToastService } from 'mis_reservas_app/components/utils/Utils';
 import { StyleSheet, Alert } from 'react-native';
-import Reactotron from 'reactotron-react-native'
-import React, { Component } from 'react'
+import Reactotron from 'reactotron-react-native';
+import React, { Component } from 'react';
 
 /* 
 	TODO:
@@ -21,6 +21,13 @@ export default class FormEditProfile extends Component {
             celular: '',
 		}
 	}
+
+	static getDerivedStateFromProps(nextProps, prevState) {
+        if(nextProps.profile){
+            return { ...nextProps.profile } // <- this is setState equivalent
+        }
+        return null;
+    }
 	
 	updateValue =  (name, value) => {
 		// Reactotron.log("FormEditProfile", name, value);
@@ -65,6 +72,7 @@ export default class FormEditProfile extends Component {
 							autoCapitalize={'words'}
 							maxLength={20}
 							updateValue={this.updateValue}
+							value={this.state.nombres}
 							/>
 						<InputTextField 
 							label="Apellido"
@@ -72,6 +80,7 @@ export default class FormEditProfile extends Component {
 							autoCapitalize={'words'}
 							maxLength={20}
 							updateValue={this.updateValue}
+							value={this.state.apellidos}
 							/>
 						<InputTextField 
 							label="Correo electrónico"
@@ -82,6 +91,7 @@ export default class FormEditProfile extends Component {
 							onBlur={() => this.props.verifyField('email', this.state.email)}
 							error={invalid_email}
 							updateValue={this.updateValue}
+							value={this.state.email}
 							/>
 						<InputTextField 
 							label="Número celular"
@@ -91,12 +101,13 @@ export default class FormEditProfile extends Component {
 							onBlur={() => this.props.verifyField('celular', this.state.celular)}
 							error={invalid_celular}
 							updateValue={this.updateValue}
+							value={String(this.state.celular)}
 							/>
 					</Form>
 				</Content>
 				<Content padder style={styles.signButton}>
 					<Button block onPress={() => this._signup()} disabled={loading} >
-						<Text>Registrarse</Text>
+						<Text>Guardar</Text>
 					</Button>
 				</Content>
 			</Container>
@@ -107,12 +118,6 @@ export default class FormEditProfile extends Component {
 const required_fields = ['nombres', 'apellidos', 'email', 'celular', 'password', 'repeat_password'];
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: '#fff',
-		alignItems: 'center',
-		justifyContent: 'center',
-	},
 	signButton: {
 		position: 'absolute', 
 		bottom: 0, 

@@ -24,13 +24,17 @@ class SedeScreen extends Component {
         }
     }
 
-    componentDidMount(){
+    componentWillMount(){
 		this.setState({
 			sede: this.props.navigation.getParam('sede', false),
 			filtro_fecha: this.props.navigation.getParam('filtro_fecha', false),
 		});
+	}
+
+	componentDidMount() {
 		this._getToken();
 	}
+	
 
     _getToken = async() => {
 		const access_token = await AsyncStorage.getItem('access_token');
