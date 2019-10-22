@@ -33,8 +33,13 @@ export default class FormEditProfile extends Component {
 
     _save(){
         if(!this._validateForm()) return;
-
-        this.props.saveProfile(this.state);
+		let formData = {
+			nombres: this.state.nombres,
+            apellidos: this.state.apellidos,
+            email: this.state.email,
+            celular: this.state.celular,
+		}
+        this.props.saveProfile(formData);
     }
 
     _validateForm = () => {
@@ -97,7 +102,7 @@ export default class FormEditProfile extends Component {
 							/>
 					</Form>
 				</Content>
-				<Content padder style={styles.signButton}>
+				<Content padder style={styles.saveButton}>
 					<Button block onPress={() => this._save()} disabled={loading} >
 						<Text>Guardar</Text>
 					</Button>
@@ -110,7 +115,7 @@ export default class FormEditProfile extends Component {
 const required_fields = ['nombres', 'apellidos', 'email', 'celular'];
 
 const styles = StyleSheet.create({
-	signButton: {
+	saveButton: {
 		position: 'absolute', 
 		bottom: 0, 
 		left:0, 

@@ -5,6 +5,7 @@ import DetalleReservaScreen from '../screens/Reservas/DetalleReserva/DetalleRese
 import ReservasScreen from '../screens/Reservas/ReservasScreen';
 import ProfileScreen from '../screens/Profile/ProfileScreen';
 import EditProfileScreen from '../screens/Profile/EditProfile/EditProfileScreen';
+import ChangePasswordScreen from '../screens/Profile/ChangePassword/ChangePasswordScreen';
 import SignupScreen from '../screens/Signup/SignupScreen';
 import LoginScreen from '../screens/Login/LoginScreen';
 import HomeScreen from '../screens/Home/HomeScreen';
@@ -33,6 +34,7 @@ export const ReservasStack = createStackNavigator({
 export const ProfileStack = createStackNavigator({ 
 	Profile: ProfileScreen,
 	EditProfile: EditProfileScreen,
+	ChangePassword: ChangePasswordScreen,
 },{
 	headerMode: 'none',
 	navigationOptions: {
@@ -42,7 +44,8 @@ export const ProfileStack = createStackNavigator({
 
 ProfileStack.navigationOptions = ({ navigation }) => {
 	let tabBarVisible = true;
-	if(navigation.state.routes[navigation.state.index].routeName === 'EditProfile'){
+	if(navigation.state.routes[navigation.state.index].routeName === 'EditProfile' 
+	   || navigation.state.routes[navigation.state.index].routeName === 'ChangePassword'){
 		tabBarVisible = false;
 	} 
     return {

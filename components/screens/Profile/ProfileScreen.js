@@ -93,6 +93,12 @@ class ProfileScreen extends Component {
             profile: this.state.profile,
         });
     }
+    
+    changePassword = () => {
+        this.props.navigation.navigate('ChangePassword', {
+            profile_id: this.state.profile.id,
+        });
+    }
 
     render() {
         let { profile } = this.state;
@@ -117,11 +123,11 @@ class ProfileScreen extends Component {
                             <Text>{profile.celular}</Text>
                         </Right>
                     </CardItem>
-                    <CardItem bordered button onPress={this.editProfile} disabled={this.state.loading}>
+                    <CardItem bordered button={!this.state.loading} onPress={this.editProfile}>
                         <Icon active name="create" />
                         <Text>Editar perfil</Text>
                     </CardItem>
-                    <CardItem bordered button disabled={this.state.loading}>
+                    <CardItem bordered button={!this.state.loading} onPress={this.changePassword}>
                         <Icon active name="create" />
                         <Text>Cambiar contraseña</Text>
                     </CardItem>
