@@ -1,6 +1,6 @@
 import { Container, Content, Item, Input, Text, Button, Icon, Card, CardItem, Right, Left, Spinner } from 'native-base';
 import AsyncStorage from '@react-native-community/async-storage';
-import { withNavigation } from 'react-navigation';
+import { withNavigationFocus } from 'react-navigation';
 import React, { Component } from 'react';
 import { Alert, StyleSheet } from 'react-native';
 
@@ -21,6 +21,12 @@ class ProfileScreen extends Component {
     componentDidMount(){
         this._getToken();
     }
+
+    componentWillReceiveProps(next_props) {
+		if (next_props.isFocused && this.props.isFocused === false) {
+			this._getToken();
+		}
+	}
 
     _logOut = () => {
         Alert.alert(
@@ -111,11 +117,11 @@ class ProfileScreen extends Component {
                             <Text>{profile.celular}</Text>
                         </Right>
                     </CardItem>
-                    <CardItem bordered button onPress={this.editProfile}>
+                    <CardItem bordered button onPress={this.editProfile} disabled={this.state.loading}>
                         <Icon active name="create" />
                         <Text>Editar perfil</Text>
                     </CardItem>
-                    <CardItem bordered button>
+                    <CardItem bordered button disabled={this.state.loading}>
                         <Icon active name="create" />
                         <Text>Cambiar contraseña</Text>
                     </CardItem>
@@ -141,4 +147,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default withNavigation(ProfileScreen);
+export default withNavigationFocus(ProfileScreen);

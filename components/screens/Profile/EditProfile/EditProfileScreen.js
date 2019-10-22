@@ -41,7 +41,8 @@ class EditProfileScreen extends Component {
 		}
 
 		this.setState({loading: true});
-		fetch(getBackendURL()+'/api/save_profile/', {
+		formData.profile_id = this.state.profile.id;
+		fetch(getBackendURL()+'/api/update_profile/', {
 			method: 'POST',
 			headers: {
 				Accept: 'application/json',
@@ -56,11 +57,11 @@ class EditProfileScreen extends Component {
 		.then((responseJson) => {
 			let data = responseJson;
 			if(data.success){
-				Alert.alert("", "Registro completado, revisa tu correo para activar la cuenta");
-				this.props.navigation.navigate('Login');
+				ToastService.showToast("Datos actualizados", "success");
+				this.props.navigation.navigate('Profile');
 			}
 			else{
-				Alert.alert("Error", "Se produjo un error al crear la cuenta. Intentalo nuevamente en unos minutos.");
+				Alert.alert("Error", "Se produjo un error al actualizar los datos. Intentalo nuevamente en unos minutos.");
 			}
 			this.setState({loading: false});
 		});
@@ -88,6 +89,7 @@ class EditProfileScreen extends Component {
 				'Authorization': 'Bearer '+this.state.access_token,
 			},
 			body: JSON.stringify({
+				cliente_id: this.state.profile.id,
 				field: field,
 				value: value,
 			}),
@@ -103,7 +105,6 @@ class EditProfileScreen extends Component {
 	}
 
     render() {
-		Reactotron.log("this.props.navigation.getParam('profile', {})", this.props.navigation.getParam('profile', {}));
         return (
             <Container>
                 <ScreenHeader title="Editar perfil" return_screen='Profile' />

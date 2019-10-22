@@ -21,23 +21,20 @@ export default class FormEditProfile extends Component {
             celular: '',
 		}
 	}
-
-	static getDerivedStateFromProps(nextProps, prevState) {
-        if(nextProps.profile){
-            return { ...nextProps.profile } // <- this is setState equivalent
-        }
-        return null;
-    }
+	
+	componentDidMount(){
+		this.setState({ ...this.props.profile })
+	}
 	
 	updateValue =  (name, value) => {
 		// Reactotron.log("FormEditProfile", name, value);
 		this.setState({ [name]: value });
     }
 
-    _signup(){
+    _save(){
         if(!this._validateForm()) return;
 
-        // this.props.signUp(this.state);
+        this.props.saveProfile(this.state);
     }
 
     _validateForm = () => {
@@ -48,11 +45,6 @@ export default class FormEditProfile extends Component {
 				ToastService.showToast("Complete todos los campos", "danger");
 				return false;
 			}
-		}
-
-		if(this.state.password != this.state.repeat_password){
-			ToastService.showToast("La contraseña no coincide", "danger");
-			return false;
 		}
 
 		return true;
@@ -106,7 +98,7 @@ export default class FormEditProfile extends Component {
 					</Form>
 				</Content>
 				<Content padder style={styles.signButton}>
-					<Button block onPress={() => this._signup()} disabled={loading} >
+					<Button block onPress={() => this._save()} disabled={loading} >
 						<Text>Guardar</Text>
 					</Button>
 				</Content>
@@ -115,7 +107,7 @@ export default class FormEditProfile extends Component {
     }
 }
 
-const required_fields = ['nombres', 'apellidos', 'email', 'celular', 'password', 'repeat_password'];
+const required_fields = ['nombres', 'apellidos', 'email', 'celular'];
 
 const styles = StyleSheet.create({
 	signButton: {
