@@ -30,7 +30,6 @@ export default class LoginScreen extends Component {
 	}
 
 	_getToken = () => {
-		Reactotron.log("pasa111");
 		// Obtener el token al inicio de sesion
 		this.setState({loading: true})
         fetch(getBackendURL()+'/oauth/token', {

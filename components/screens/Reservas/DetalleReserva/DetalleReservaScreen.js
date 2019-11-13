@@ -40,7 +40,7 @@ class DetalleReservaScreen extends Component {
 						<Text>Calificar</Text>
                     </Button> */}
                     
-                    {this.state.reserva.estado===0 || this.state.reserva.estado===1 ?
+                    {this.state.reserva.cancelable ?
                     <Button block warning 
                         onPress={() => {this.setModalVisible(!this.state.modalVisible)}}
                         style={styles.button}>
