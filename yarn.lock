@@ -2665,9 +2665,9 @@ hoist-non-react-statics@^3.0.1, hoist-non-react-statics@^3.3.0:
     react-is "^16.7.0"
 
 hosted-git-info@^2.1.4:
-  version "2.7.1"
-  resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.7.1.tgz#97f236977bd6e125408930ff6de3eec6281ec047"
-  integrity sha512-7T/BxH19zbcCTa8XkMlbK5lTo1WtgkFi3GvdWEyNuc4Vex7/9Dqbnpsf4JMydcfj9HCg4zUWFTL3Za6lapg5/w==
+  version "2.8.9"
+  resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.8.9.tgz#dffc0bf9a21c02209090f2aa69429e1414daf3f9"
+  integrity sha512-mxIDAb9Lsm6DoOJ7xH+5+X4y1LU/4Hi50L9C5sIswK3JzULS4bwk1FvjdBgvYR4bzT4tuUQiC15FE2f5HbLvYw==
 
 html-encoding-sniffer@^1.0.2:
   version "1.0.2"
@@ -4295,6 +4295,11 @@ mkdirp@^0.5.0, mkdirp@^0.5.1:
   dependencies:
     minimist "0.0.8"
 
+moment@^2.22.0:
+  version "2.29.1"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.1.tgz#b2be769fa31940be9eeea6469c075e35006fa3d3"
+  integrity sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==
+
 morgan@^1.9.0:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/morgan/-/morgan-1.9.1.tgz#0a8d16734a1d9afbc824b99df87e738e58e2da59"
@@ -5086,6 +5091,13 @@ react-native-animatable@^1.3.1:
   dependencies:
     prop-types "^15.5.10"
 
+react-native-datepicker@^1.7.2:
+  version "1.7.2"
+  resolved "https://registry.yarnpkg.com/react-native-datepicker/-/react-native-datepicker-1.7.2.tgz#58d0822591a0ac9b32aba082650222a0ee29669d"
+  integrity sha1-WNCCJZGgrJsyq6CCZQIioO4pZp0=
+  dependencies:
+    moment "^2.22.0"
+
 react-native-drawer@2.5.1:
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/react-native-drawer/-/react-native-drawer-2.5.1.tgz#08b9314184f48c724f1b467f8859797369798654"
@@ -5247,6 +5259,13 @@ react-navigation@^3.9.0:
     react-navigation-drawer "1.2.1"
     react-navigation-stack "1.3.0"
     react-navigation-tabs "1.1.2"
+
+react-number-format@^4.0.8:
+  version "4.5.5"
+  resolved "https://registry.yarnpkg.com/react-number-format/-/react-number-format-4.5.5.tgz#563807ee142a03857111115806d39767bc698797"
+  integrity sha512-3NGqgSbMUwRwgJ4852RH24UFkW89yx/e0P78Hwmf3TajLMKCOJ7DPJCcl/6z+2+HpJ8AG7je/J8na3ykWx8acg==
+  dependencies:
+    prop-types "^15.7.2"
 
 react-proxy@^1.1.7:
   version "1.1.8"
